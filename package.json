@@ -27,10 +27,6 @@
   "engines": {
     "node": "0.10.x"
   },
-  "auto-updater": {
-    "repo": "/deliverymanager/printServer",
-    "branch": "master"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/deliverymanager/printServer"

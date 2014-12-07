@@ -7,51 +7,21 @@ var bodyParser = require('body-parser');
 var bugsnag = require("bugsnag");
 bugsnag.register("9d5907a30dcfaf8806e542fbf61cf623");
 
-//Test Auto Update Check
-var autoupdater = require('./node_modules/auto-updater/auto-updater.js')({
-    pathToJson: '',
-    async: true,
-    silent: false,
-    autoupdate: true,
-    check_git: true
-});
+var gitPullCron = require('git-pull-cron');
 
+/*
+- Clone given repo into /dev/my-repo, replacing what's already there
+- Schedule cron to run every weekday (Mon-Fri) at 11:30am
+- When cron task runs, a `git pull origin master` will be performed
+- Once cron task has run the callback will get invoked with latest commit info
+ */
+gitPullCron.init('git://github.com/deliverymanager/prinServer', '../printServer', '00 * * * * *', function(err, commit) {
+    if (err) {
+        return console.error(err.stack);
+    }
 
-autoupdater.on('check-out-dated', function(v_old, v) {
-    console.log("Your version is outdated. " + v_old + " of " + v);
-    autoupdater.forceDownloadUpdate(); // If autoupdate: false, you'll have to do this manually.
-    // Maybe ask if the'd like to download the update.
+    console.log('Updated to commit: ' + commit.id);
 });
-autoupdater.on('update-downloaded', function() {
-    console.log("Update downloaded and ready for install");
-    autoupdater.forceExtract(); // If autoupdate: false, you'll have to do this manually.
-});
-autoupdater.on('update-not-installed', function() {
-    console.log("The Update was already in your folder! It's read for install");
-    autoupdater.forceExtract(); // If autoupdate: false, you'll have to do this manually.
-});
-autoupdater.on('extracted', function() {
-    console.log("Update extracted successfully!");
-    console.log("RESTART THE APP!");
-});
-autoupdater.on('download-start', function(name) {
-    console.log("Starting downloading: " + name);
-});
-autoupdater.on('download-update', function(name, perc) {
-    process.stdout.write("Downloading " + perc + "% \033[0G");
-});
-autoupdater.on('download-end', function(name) {
-    console.log("Downloaded " + name);
-});
-autoupdater.on('download-error', function(err) {
-    console.log("Error when downloading: " + err);
-});
-autoupdater.on('end', function() {
-    console.log("The app is ready to function");
-});
-
-// Start checking
-autoupdater.forceCheck();
 
 //Here I am creating the singleton connection to the MongoDb server.
 //This connection will be used in all the controllers and middleware in the app.
