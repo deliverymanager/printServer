@@ -10,6 +10,7 @@
     "body-parser": "^1.9.2",
     "bugsnag": "^1.5.0",
     "express": "~4.9.x",
+    "git-pull-cron": "^1.0.0",
     "local-ip": "^1.0.1",
     "moment": "^2.8.4",
     "moment-timezone": "^0.2.5",
