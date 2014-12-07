@@ -12,7 +12,7 @@ var autoupdater = require('./node_modules/auto-updater/auto-updater.js')({
     pathToJson: '',
     async: true,
     silent: false,
-    autoupdate: false,
+    autoupdate: true,
     check_git: true
 });
 
