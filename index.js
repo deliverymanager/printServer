@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var bugsnag = require("bugsnag");
 bugsnag.register("9d5907a30dcfaf8806e542fbf61cf623");
 
-//Test Auto Update
+//Test Auto Update Check
 var autoupdater = require('./node_modules/auto-updater/auto-updater.js')({
     pathToJson: '',
     async: true,
