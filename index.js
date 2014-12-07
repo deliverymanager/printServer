@@ -8,7 +8,7 @@ var bugsnag = require("bugsnag");
 bugsnag.register("9d5907a30dcfaf8806e542fbf61cf623");
 
 
-var autoupdater = require('./lib/auto-updater.js')({
+var autoupdater = require('./node_modules/auto-updater.js')({
     pathToJson: '',
     async: true,
     silent: false,
