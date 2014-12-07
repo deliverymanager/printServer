@@ -1,0 +1,38 @@
+{
+    "name": "printserver",
+    "version": "0.0.1",
+    "description": "Print Server",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "dependencies": {
+        "body-parser": "^1.9.2",
+        "bugsnag": "^1.5.0",
+        "express": "~4.9.x",
+        "moment": "^2.8.4",
+        "moment-timezone": "^0.2.5",
+        "mongodb": "~2.0.5",
+        "mysql": "^2.5.2",
+        "nodetime": "*",
+        "request": "^2.47.0",
+        "time": "^0.11.0"
+    },
+    "devDependencies": {
+        "mocha": "*",
+        "should": ">= 0.0.1"
+    },
+    "engines": {
+        "node": "0.10.x"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/deliverymanager/printServer"
+    },
+    "keywords": [
+        "node",
+        "heroku",
+        "express"
+    ],
+    "license": "MIT"
+}
