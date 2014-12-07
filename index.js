@@ -13,7 +13,12 @@ bugsnag.register("9d5907a30dcfaf8806e542fbf61cf623");
 //mongoDbConnection(function(db) {});
 
 var os = require('os');
-
+console.log(os.platform());
+console.log(os.type());
+console.log(os.hostname());
+console.log(os.arch());
+console.log(os.release());
+console.log(os.cpus());
 var interfaces = os.networkInterfaces();
 var addresses = [];
 for (var k in interfaces) {
