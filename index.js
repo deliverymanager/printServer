@@ -16,13 +16,7 @@ var autoupdater = require('./node_modules/auto-updater/auto-updater.js')({
     check_git: true
 });
 
-// State the events
-autoupdater.on('git-clone', function() {
-    console.log("You have a clone of the repository. Use 'git pull' to be up-to-date");
-});
-autoupdater.on('check-up-to-date', function(v) {
-    console.log("You have the latest version: " + v);
-});
+
 autoupdater.on('check-out-dated', function(v_old, v) {
     console.log("Your version is outdated. " + v_old + " of " + v);
     autoupdater.forceDownloadUpdate(); // If autoupdate: false, you'll have to do this manually.
