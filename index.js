@@ -15,7 +15,7 @@ var gitPullCron = require('git-pull-cron');
 - When cron task runs, a `git pull origin master` will be performed
 - Once cron task has run the callback will get invoked with latest commit info
  */
-gitPullCron.init('git://github.com/deliverymanager/prinServer', '../printServer', '00 * * * * *', function(err, commit) {
+gitPullCron.init('https://github.com/deliverymanager/printServer', '../Applications', '00 00 * * * *', function(err, commit) {
     if (err) {
         return console.error(err.stack);
     }
