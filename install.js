@@ -24,6 +24,35 @@ svc.on('alreadyinstalled',function(){
 svc.on('start',function(){
   console.log(svc.name);
 });
+/*
+The Service object emits the following events:
+
+install - Fired when the script is installed as a service.
+alreadyinstalled - Fired if the script is already known to be a service.
+invalidinstallation - Fired if an installation is detected but missing required files.
+uninstall - Fired when an uninstallation is complete.
+start - Fired when the new service is started.
+stop - Fired when the service is stopped.
+error - Fired in some instances when an error occurs
+*/
+svc.on('install',function(){
+  console.log(svc.name);
+});
+svc.on('alreadyinstalled',function(){
+  console.log("alreadyinstalled"+svc.name);
+});
+svc.on('invalidinstallation',function(){
+  console.log("invalidinstallation"+svc.name);
+});
+svc.on('error',function(){
+ console.log("error"+svc.name);
+});
+svc.on('start',function(){
+  console.log("start"+svc.name);
+});
+svc.on('stop',function(){
+  console.log("stop"+svc.name);
+});
 
 // Install the script as a service.
 svc.install();
