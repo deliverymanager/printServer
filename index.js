@@ -56,7 +56,7 @@ if (os.type() == "Windows_NT") {
     //If no then we check if the user has administrative priviledges
     //On windows XP nothing with happen as most of the times the user is admin
     //On Windows 7 etc, the pop prompt will appear asking for administrative priviledges
-
+    /*
     var wincmd = require('node-windows');
 
     wincmd.isAdminUser(function(isAdmin) {
@@ -84,6 +84,7 @@ if (os.type() == "Windows_NT") {
             console.log('NOT AN ADMIN');
         }
     });
+    */
 }
 
 console.log(os.hostname());
