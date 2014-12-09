@@ -4,8 +4,9 @@
   "description": "Print Server",
   "main": "index.js",
   "scripts": {
-    "postinstall": "winser -i -s -c",
-    "preuninstall": "winser -r -x -s"
+	"start": "node server.js",
+    "install-windows-service": "winser -i -a -c",
+    "uninstall-windows-service": "winser -r"
   },
   "dependencies": {
     "auto-updater": "0.0.7",
