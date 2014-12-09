@@ -49,11 +49,37 @@ var os = require('os');
 console.log(os.platform());
 console.log(os.type());
 if (os.type() == "Windows_NT") {
+
+    //First we need to check if the service is already installed
+
+
+    //If no then we check if the user has administrative priviledges
+    //On windows XP nothing with happen as most of the times the user is admin
+    //On Windows 7 etc, the pop prompt will appear asking for administrative priviledges
+
     var wincmd = require('node-windows');
 
     wincmd.isAdminUser(function(isAdmin) {
         if (isAdmin) {
             console.log('The user has administrative privileges.');
+            //Then we need to install and start the service!
+            var Service = require('node-windows').Service;
+
+            // Create a new service object
+            var svc = new Service({
+                name: 'Delivery Manager Print Server',
+                description: 'deliverymanager.gr',
+                script: 'C:\\printServer\\index.js'
+            });
+
+            // Listen for the "install" event, which indicates the
+            // process is available as a service.
+            svc.on('install', function() {
+                svc.start();
+            });
+
+            svc.install();
+
         } else {
             console.log('NOT AN ADMIN');
         }
