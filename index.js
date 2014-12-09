@@ -86,7 +86,17 @@ app.get('/printServer', function(req, res) {
     });
 });
 
-var port = 3004;
-app.listen(port, function() {
-    console.log("Node app is running at localhost:" + port);
+var port;
+var portfinder = require('portfinder');
+portfinder.basePort = 4950;
+portfinder.getPort(function(err, cleanPort) {
+    //
+    // `port` is guarenteed to be a free port
+    // in this scope.
+    //
+    port = cleanPort;
+    app.listen(port, function() {
+        console.log("Node app is running at localhost:" + port);
+    });
+
 });
