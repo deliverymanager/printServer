@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "winser -i -s -c",
-    "preuninstall": "winser -r -x -s",
+    "preuninstall": "winser -r -x -s"
   },
   "dependencies": {
     "auto-updater": "0.0.7",
@@ -22,7 +22,7 @@
     "printer": "0.0.2",
     "request": "^2.47.0",
     "time": "^0.11.0"
-  },
+  }, 
   "devDependencies": {
     "mocha": "*",
     "should": ">= 0.0.1"
