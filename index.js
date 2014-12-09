@@ -6,6 +6,8 @@ var app = express();
 var bodyParser = require('body-parser');
 var bugsnag = require("bugsnag");
 bugsnag.register("9d5907a30dcfaf8806e542fbf61cf623");
+
+
 /*
 var forever = require('forever-monitor');
 
@@ -46,6 +48,18 @@ gitPullCron.init('https://github.com/deliverymanager/printServer', './Applicatio
 var os = require('os');
 console.log(os.platform());
 console.log(os.type());
+if (os.type() == "Windows_NT") {
+    var wincmd = require('node-windows');
+
+    wincmd.isAdminUser(function(isAdmin) {
+        if (isAdmin) {
+            console.log('The user has administrative privileges.');
+        } else {
+            console.log('NOT AN ADMIN');
+        }
+    });
+}
+
 console.log(os.hostname());
 console.log(os.arch());
 console.log(os.release());
