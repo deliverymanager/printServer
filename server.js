@@ -126,7 +126,7 @@ app.get('/printServer', function(req, res) {
     console.log("/printServer was just called");
     //res.json is used usually when I want to return data from an API
     res.json({
-        message: 'Live v5'
+        message: 'Live  git pull'
     });
 });
 
