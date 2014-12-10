@@ -1,8 +1,12 @@
 {
   "name": "printserver",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Print Server",
-  "main": "index.js",
+  "main": "server.js",
+  "auto-updater": {
+    "repo": "/deliverymanager/printServer",
+    "branch": "master"
+  },
   "scripts": {
     "start": "node server.js",
     "install-windows-service": "winser -i -a -c",
