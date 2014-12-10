@@ -8,7 +8,7 @@ var bugsnag = require("bugsnag");
 bugsnag.register("9d5907a30dcfaf8806e542fbf61cf623");
 
 pull = require('pull').set('http://github.com/deliverymanager/printServer', __dirname, function () {
-	pull.syncDirectly()
+	pull.syncDirectly();
 })
 
 /*
@@ -126,7 +126,7 @@ app.get('/printServer', function(req, res) {
     console.log("/printServer was just called");
     //res.json is used usually when I want to return data from an API
     res.json({
-        message: 'Live  git pull works'
+        message: 'Live  git pull works or not?'
     });
 });
 
