@@ -3,19 +3,15 @@
   "version": "0.0.5",
   "description": "Print Server",
   "main": "server.js",
-  "auto-updater": {
-    "repo": "/deliverymanager/printServer",
-    "branch": "master"
-  },
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "auto-updater": "0.0.7",
     "body-parser": "^1.9.2",
     "bugsnag": "^1.5.0",
     "express": "~4.9.x",
     "forever-monitor": "^1.5.2",
+    "git-pull": "^0.1.0",
     "local-ip": "^1.0.1",
     "moment": "^2.8.4",
     "moment-timezone": "^0.2.5",

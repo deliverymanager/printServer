@@ -7,56 +7,15 @@ var bodyParser = require('body-parser');
 var bugsnag = require("bugsnag");
 bugsnag.register("9d5907a30dcfaf8806e542fbf61cf623");
 
-var autoupdater = require('auto-updater')({
-        pathToJson: '',
-        async: true,
-        silent: false,
-        autoupdate: true,
-        check_git: true
-    });
+var gitpull = require('git-pull')
 
-    // State the events
-    autoupdater.on('git-clone',function(){
-      console.log("You have a clone of the repository. Use 'git pull' to be up-to-date");
-    });
-    autoupdater.on('check-up-to-date',function(v){
-      console.log("You have the latest version: " + v);
-    });
-    autoupdater.on('check-out-dated',function(v_old , v){
-      console.log("Your version is outdated. "+v_old+ " of "+v);
-      autoupdater.forceDownloadUpdate(); // If autoupdate: false, you'll have to do this manually.
-      // Maybe ask if the'd like to download the update.
-    });
-    autoupdater.on('update-downloaded',function(){
-      console.log("Update downloaded and ready for install");
-      autoupdater.forceExtract(); // If autoupdate: false, you'll have to do this manually.
-    });
-    autoupdater.on('update-not-installed',function(){
-      console.log("The Update was already in your folder! It's read for install");
-      autoupdater.forceExtract(); // If autoupdate: false, you'll have to do this manually.
-    });
-    autoupdater.on('extracted',function(){
-      console.log("Update extracted successfully!");
-      console.log("RESTART THE APP!");
-    });
-    autoupdater.on('download-start',function(name){
-      console.log("Starting downloading: " + name);
-    });
-    autoupdater.on('download-update',function(name,perc){
-      process.stdout.write("Downloading " + perc + "% \033[0G");
-    });
-    autoupdater.on('download-end',function(name){
-      console.log("Downloaded " + name);
-    });
-    autoupdater.on('download-error',function(err){
-      console.log("Error when downloading: " + err);
-    });
-    autoupdater.on('end',function(){
-      console.log("The app is ready to function");
-    });
-
-    // Start checking
-    autoupdater.forceCheck();
+gitpull('C:\printServer', function (err, consoleOutput) {
+    if (err) {
+        console.error("Error!", err, consoleOutput);
+    } else {
+        console.log("Success!", consoleOutput);
+    }
+});
 
 /*
 var forever = require('forever-monitor');
