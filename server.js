@@ -11,7 +11,7 @@ var autoupdater = require('auto-updater')({
         pathToJson: '',
         async: true,
         silent: false,
-        autoupdate: false,
+        autoupdate: true,
         check_git: true
     });
 
