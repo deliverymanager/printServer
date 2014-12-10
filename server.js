@@ -71,6 +71,9 @@ app.get('/getPrinters', function(req, res) {
     });
 });
 
+
+//API to check the version of the server.
+
 app.get('/testError', function(req, res) {
     console.log("/testError was just called");
     //res.json is used usually when I want to return data from an API
