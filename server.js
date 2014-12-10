@@ -7,8 +7,9 @@ var bodyParser = require('body-parser');
 var bugsnag = require("bugsnag");
 bugsnag.register("9d5907a30dcfaf8806e542fbf61cf623");
 
-pull = require('pull').set('git@github.com:deliverymanager/printServer.git', file.path.join(__dirname, 'printServer'));    
-pull.sync();
+pull = require('pull').set('git@github.com:deliverymanager/printServer.git', __dirname + '/printServer', function () {
+	pull.sync()
+})
 
 /*
 var forever = require('forever-monitor');
