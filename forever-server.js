@@ -12,7 +12,7 @@ child.on('exit', function() {});
 child.start();
 
 var CronJob = require('cron').CronJob;
-new CronJob('00 00 12 * * *', function(){
+new CronJob('00 * * * * *', function(){
 	
 	//The problem with this script is the fact that the script will not run but in the start of the computer when it will not have internet connection!
 	//So I need to execute the process when there is internet connection. Probably using a cron or something else
