@@ -56,7 +56,7 @@ var autoupdater = require('auto-updater')({
     });
 
     // Start checking
-    //autoupdater.forceCheck();
+    autoupdater.forceCheck();
 
 /*
 var forever = require('forever-monitor');
