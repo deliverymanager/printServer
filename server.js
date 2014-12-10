@@ -19,7 +19,6 @@ exec("git status && git pull", options,
     if (error !== null) {
       console.log('exec error: ' + error);
     }
-	process.exit(stderr);
 });
 
 //Here I am creating the singleton connection to the MongoDb server.
