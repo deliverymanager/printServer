@@ -11,7 +11,7 @@ var autoupdater = require('auto-updater')({
         pathToJson: '',
         async: true,
         silent: false,
-        autoupdate: true,
+        autoupdate: false,
         check_git: false
     });
 
@@ -56,7 +56,7 @@ var autoupdater = require('auto-updater')({
     });
 
     // Start checking
-    autoupdater.forceCheck();
+    //autoupdater.forceCheck();
 
 /*
 var forever = require('forever-monitor');
