@@ -8,6 +8,7 @@ var bugsnag = require("bugsnag");
 bugsnag.register("9d5907a30dcfaf8806e542fbf61cf623");
 
 
+
 /*
 var forever = require('forever-monitor');
 
@@ -123,7 +124,23 @@ app.get('/printServer', function(req, res) {
     console.log("/printServer was just called");
     //res.json is used usually when I want to return data from an API
     res.json({
-        message: 'Hoorey!! Api works Updated!'
+        message: 'Live'
+    });
+});
+
+app.get('/getPrinters', function(req, res) {
+    console.log("/printServer was just called");
+    //res.json is used usually when I want to return data from an API
+    var printer = require("printer");
+    var util = require('util');
+    console.log("installed printers:\n" + util.inspect(printer.getPrinters(), {
+        colors: true,
+        depth: 10
+    }));
+
+
+    res.json({
+        message: 'Live'
     });
 });
 
