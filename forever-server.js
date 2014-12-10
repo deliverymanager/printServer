@@ -16,6 +16,7 @@ var exec = require('child_process').exec;
 function puts(error, stdout, stderr) { 
 
 	sys.puts(stdout);
+	//Here I restart the server because the git pull was just called.
 	child.restart();
 }
 
