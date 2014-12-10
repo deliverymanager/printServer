@@ -9,6 +9,7 @@
   "dependencies": {
     "body-parser": "^1.9.2",
     "bugsnag": "^1.5.0",
+    "cron": "^1.0.5",
     "express": "~4.9.x",
     "forever-monitor": "^1.5.2",
     "local-ip": "^1.0.1",
