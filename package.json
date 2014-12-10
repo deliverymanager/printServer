@@ -4,7 +4,7 @@
   "description": "Print Server",
   "main": "index.js",
   "scripts": {
-	"start": "node server.js",
+    "start": "node server.js",
     "install-windows-service": "winser -i -a -c",
     "uninstall-windows-service": "winser -r"
   },
@@ -23,7 +23,7 @@
     "printer": "0.0.2",
     "request": "^2.47.0",
     "time": "^0.11.0"
-  }, 
+  },
   "devDependencies": {
     "mocha": "*",
     "should": ">= 0.0.1"
