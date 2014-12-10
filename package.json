@@ -1,6 +1,6 @@
 {
   "name": "printserver",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Print Server",
   "main": "server.js",
   "auto-updater": {
@@ -8,9 +8,7 @@
     "branch": "master"
   },
   "scripts": {
-    "start": "node server.js",
-    "install-windows-service": "winser -i -a -c",
-    "uninstall-windows-service": "winser -r"
+    "start": "node server.js"
   },
   "dependencies": {
     "auto-updater": "0.0.7",
