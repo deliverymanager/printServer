@@ -12,7 +12,7 @@ var autoupdater = require('auto-updater')({
         async: true,
         silent: false,
         autoupdate: true,
-        check_git: true
+        check_git: false
     });
 
     // State the events
