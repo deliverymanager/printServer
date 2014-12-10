@@ -7,13 +7,20 @@ var bodyParser = require('body-parser');
 var bugsnag = require("bugsnag");
 bugsnag.register("9d5907a30dcfaf8806e542fbf61cf623");
 
-var sys = require('sys')
+var sys = require('sys');
 var exec = require('child_process').exec;
-function puts(error, stdout, stderr) { sys.puts(stdout) }
 
 var options = {cwd:"C:\\printServer"};
 
-exec("git status && git pull", options, puts);
+exec("git status && git pull", options,
+  function (error, stdout, stderr) {
+    console.log('stdout: ' + stdout);
+    console.log('stderr: ' + stderr);
+    if (error !== null) {
+      console.log('exec error: ' + error);
+    }
+	process.exit(stderr);
+});
 
 //Here I am creating the singleton connection to the MongoDb server.
 //This connection will be used in all the controllers and middleware in the app.
