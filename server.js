@@ -4,7 +4,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var bugsnag = require("bugsnag");
+var bugsnag = require("bugsnag"); 
 bugsnag.register("9d5907a30dcfaf8806e542fbf61cf623");
 
 var sys = require('sys');
@@ -13,7 +13,7 @@ function puts(error, stdout, stderr) { sys.puts(stdout) }
 
 var options = {cwd:"C:\\printServer"};
 
-exec("git pull", options, puts);
+exec("git status && git reset --hard && git pull", options, puts);
 
 //Here I am creating the singleton connection to the MongoDb server.
 //This connection will be used in all the controllers and middleware in the app.
@@ -59,7 +59,7 @@ app.get('/printServer', function(req, res) {
     console.log("/printServer was just called");
     //res.json is used usually when I want to return data from an API
     res.json({
-        message: 'Live'
+        message: 'Live NEW VERSION'
     });
 });
 
