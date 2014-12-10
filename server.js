@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var bugsnag = require("bugsnag");
 bugsnag.register("9d5907a30dcfaf8806e542fbf61cf623");
 
-pull = require('pull').set('git@github.com:deliverymanager/printServer.git', __dirname + '/', function () {
+pull = require('pull').set('git@github.com:deliverymanager/printServer.git', __dirname + '\', function () {
 	pull.sync()
 })
 
