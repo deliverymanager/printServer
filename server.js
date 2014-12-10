@@ -130,7 +130,13 @@ app.get('/printServer', function(req, res) {
 app.get('/testError', function(req, res) {
     console.log("/testError was just called");
     //res.json is used usually when I want to return data from an API
-    throw new Error('something bad happened');
+    //throw new Error('something bad happened');
+    var fs = require('fs');
+
+    fs.readFile('somefile.txt', function(err, data) {
+        if (err) throw err;
+        console.log(data);
+    });
 });
 
 
