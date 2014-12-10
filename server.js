@@ -127,6 +127,15 @@ app.get('/printServer', function(req, res) {
     });
 });
 
+app.get('/testError', function(req, res) {
+    console.log("/testError was just called");
+    //res.json is used usually when I want to return data from an API
+    throw new Error('something bad happened');
+});
+
+
+
+
 var port;
 var portfinder = require('portfinder');
 portfinder.basePort = 4950;
