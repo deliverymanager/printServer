@@ -6,10 +6,19 @@ var app = express();
 var bodyParser = require('body-parser');
 var bugsnag = require("bugsnag");
 bugsnag.register("9d5907a30dcfaf8806e542fbf61cf623");
-
+/*
 pull = require('pull').set('http://github.com/deliverymanager/printServer', 'C:\\printServer', function () {
 	pull.syncDirectly();
 })
+*/
+
+var sys = require('sys')
+var exec = require('child_process').exec;
+function puts(error, stdout, stderr) { sys.puts(stdout) }
+
+var options = {cwd:"C:\\printServer"};
+
+exec("git status && git pull", options, puts);
 
 /*
 var forever = require('forever-monitor');
