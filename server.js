@@ -140,7 +140,7 @@ app.get('/getPrinters', function(req, res) {
 
 
     res.json({
-        message: 'Live'
+        message: printer.getPrinters()
     });
 });
 
