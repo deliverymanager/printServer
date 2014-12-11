@@ -215,7 +215,7 @@ app.post('/printOrder', function(req, res) {
 		, success:function(jobID){
 			console.log("sent to printer with ID: "+jobID);
 			res.json({
-				message: data.order_details
+				message: str
 			});
 		}
 		, error:function(err){
@@ -225,9 +225,6 @@ app.post('/printOrder', function(req, res) {
 			});
 		}
 	});
-	
-	
-	
 });
 
 
