@@ -100,7 +100,7 @@ app.post('/printOrder', function(req, res) {
             str += "\x1E";
             str += "*** " + order_id + " ***\r\n";
             str += "\x1B\x1D\x61\x00"; // Centering 1B 1D 61 01 for STAR center 00 for left and 02 for right
-        } else if (printerBrand == "OCOM") {//The ESCP commands do not work!
+        } else if (printerBrand == "OCOM") { //The ESCP commands do not work!
             str += "\r\n"; //New line command! Important otherwise barcode after that will not work!
             str += "\x1B\x61\x01"; // Centering
             str += "\x1D\x66\x00"; //Selects a font for the HRI characters used when printing a bar code.
@@ -238,9 +238,9 @@ app.post('/printOrder', function(req, res) {
         type: 'RAW', // type: RAW, TEXT, PDF, JPEG, .. depends on platform
         success: function(jobID) {
             console.log("sent to printer with ID: " + jobID);
-
+            var status = printer.getJob(data.printer, jobID);
             res.json({
-                message: printer.getJob(data.printer.status, jobID)
+                message: status.status[0]
             });
         },
         error: function(err) {
