@@ -154,6 +154,8 @@ app.post('/printOrder', function(req, res) {
 		str += "\x1C\x2E";
 		str += "\x1B\x74\x18"; // This sets the code page to CP737 Decimal (27 64 27 116 24)
 	}
+	str += "\x1C\x2E";
+		str += "\x1B\x74\x18"; // This sets the code page to CP737 Decimal (27 64 27 116 24)
 	//Resettinh styling!
 	if(data.printerBrand == "Star TSP-100 Series"){
 		str += "\x1B\x1D\x61\x00"; // Centering 1B 1D 61 01 for STAR center 00 for left and 02 for right
