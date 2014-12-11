@@ -215,7 +215,7 @@ app.post('/printOrder', function(req, res) {
         // Cut receipt
         if (data.printerBrand == "Star TSP-100 Series") {
             str += "\x1B\x64\x00";
-        } else if (data.printerBrand == "OCOM") {
+        } else if (data.printerBrand == "OCOM" || data.printerBrand == "Xprinter") {
             str += "\x1D\x56\x42\x18";
         } else {
             str += "\x1B\x69";
