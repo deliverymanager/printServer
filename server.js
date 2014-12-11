@@ -163,7 +163,7 @@ app.post('/printOrder', function(req, res) {
     }
 
     //Checking to see if there is a barcode to print at the top
-    if ((data.print_barcode == 1) && (data.barcodeTopBottom === 0)) {
+    if ((data.print_barcode == "1") && (data.barcodeTopBottom == "0")) {
         str += printBarcode(data.print_barcode, data.barcodeTopBottom, data.order_id, data.store_id, data.printerBrand);
     }
 
@@ -171,7 +171,7 @@ app.post('/printOrder', function(req, res) {
     //str += "Anestis Domvris τεσταρω τα Ελληνικά γράμματα!";
 
     //Checking to see if there is a barcode to print at the bottom
-    if ((data.print_barcode == 1) && (data.barcodeTopBottom == 1)) {
+    if ((data.print_barcode == "1") && (data.barcodeTopBottom == "1")) {
         str += printBarcode(data.print_barcode, data.barcodeTopBottom, data.order_id, data.store_id, data.printerBrand);
     }
 
@@ -189,7 +189,7 @@ app.post('/printOrder', function(req, res) {
     str += "\r\n";
 
     str += "\x1B\x40";
-    if (data.auto_cutter == 1) {
+    if (data.auto_cutter == "1") {
         // Cut receipt
         if (data.printerBrand == "Star TSP-100 Series") {
             str += "\x1B\x64\x00";
