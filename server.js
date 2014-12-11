@@ -73,6 +73,7 @@ app.get('/getPrinters', function(req, res) {
 });
 
 app.post('/printOrder', function(req, res) {
+	var data = req.body;
 	//json parameters: printer, printerBrand, printerCodepage, print_barcode, barcodeTopBottom, order_id, store_id, order_details, auto_cutter
     console.log("/print was just called");
 	
@@ -133,18 +134,18 @@ app.post('/printOrder', function(req, res) {
 	//It should accept more than one printers as input.
 	var str = "\x1B\x40";
 	
-	if(req.printerBrand == "Star TSP-100 Series" && req.printerCodepage == 'CP869'){
+	if(data.printerBrand == "Star TSP-100 Series" && data.printerCodepage == 'CP869'){
 		str += "\x1B\x1D\x74\x11"; // This sets the code page to CP869
-	}else if(req.printerBrand == "Star TSP-100 Series" && req.printerCodepage == 'CP737'){
+	}else if(data.printerBrand == "Star TSP-100 Series" && data.printerCodepage == 'CP737'){
 		str += "\x1B\x1D\x74\x0F"; // This sets the code page to CP737
-	}else if(req.printerBrand == "Casio" && req.printerCodepage == 'CP737'){
+	}else if(data.printerBrand == "Casio" && data.printerCodepage == 'CP737'){
 		//This is a hardware dependent command to "Cancel Kanji character mode".
 		//This command can be used only for the Japanese, Simplified Chinese, Traditional Chinese, and Korean models.
 		//My model is usung as default Simplified Chinese.
 		//This command should be executed again after printer resets or powers down.
 		//If Kanji mode is canceled, the printer processes a character code as a 1-byte code of alphanumeric Katakana characters.
 		str += "\x1B\x74\x18"; // This sets the code page to CP737 Decimal (27 64 27 116 24)
-	}else if((req.printerBrand == "Xprinter" || req.printerBrand == "OCOM")&& req.printerCodepage == 'CP737'){
+	}else if((data.printerBrand == "Xprinter" || data.printerBrand == "OCOM")&& data.printerCodepage == 'CP737'){
 		//This is a hardware dependent command to "Cancel Kanji character mode".
 		//This command can be used only for the Japanese, Simplified Chinese, Traditional Chinese, and Korean models.
 		//My model is usung as default Simplified Chinese.
@@ -154,26 +155,26 @@ app.post('/printOrder', function(req, res) {
 		str += "\x1B\x74\x18"; // This sets the code page to CP737 Decimal (27 64 27 116 24)
 	}
 	//Resettinh styling!
-	if(req.printerBrand == "Star TSP-100 Series"){
+	if(data.printerBrand == "Star TSP-100 Series"){
 		str += "\x1B\x1D\x61\x00"; // Centering 1B 1D 61 01 for STAR center 00 for left and 02 for right
 	}else{
 		str += "\x1B\x21\x00"; // Commands to reset the styling.
 	}
 	
 	//Checking to see if there is a barcode to print at the top
-	if((req.print_barcode==1)&&(req.barcodeTopBottom == 0)){
-		str += printBarcode(req.print_barcode, req.barcodeTopBottom, req.order_id, req.store_id, req.printerBrand);
+	if((data.print_barcode==1)&&(data.barcodeTopBottom == 0)){
+		str += printBarcode(data.print_barcode, data.barcodeTopBottom, data.order_id, data.store_id, data.printerBrand);
 	}
 	
-	str += req.order_details.toString();
+	str += data.order_details.toString();
 	
 	//Checking to see if there is a barcode to print at the bottom
-	if((req.print_barcode==1)&&(req.barcodeTopBottom == 1)){
-		str += printBarcode(req.print_barcode, req.barcodeTopBottom, req.order_id, req.store_id, req.printerBrand);
+	if((data.print_barcode==1)&&(data.barcodeTopBottom == 1)){
+		str += printBarcode(data.print_barcode, data.barcodeTopBottom, data.order_id, data.store_id, data.printerBrand);
 	}
 	
 	//Resettinh styling!
-	if(req.printerBrand == "Star TSP-100 Series"){
+	if(data.printerBrand == "Star TSP-100 Series"){
 		str += "\x1B\x1D\x61\x00"; // Centering 1B 1D 61 01 for STAR center 00 for left and 02 for right
 	}else{
 		str += "\x1B\x21\x00"; // Commands to reset the styling.
@@ -186,11 +187,11 @@ app.post('/printOrder', function(req, res) {
 	str += "\r\n";
 
 	str += "\x1B\x40";
-	if(req.auto_cutter==1){
+	if(data.auto_cutter==1){
 		// Cut receipt
-		if(req.printerBrand == "Star TSP-100 Series"){
+		if(data.printerBrand == "Star TSP-100 Series"){
 			str += "\x1B\x64\x00";
-		}else if(req.printerBrand == "OCOM"){
+		}else if(data.printerBrand == "OCOM"){
 			str += "\x1D\x56\x42\x18";
 		}else{
 			str += "\x1B\x69";
@@ -209,7 +210,7 @@ app.post('/printOrder', function(req, res) {
     var printer = require("printer");
 	
 	printer.printDirect({data:buffer
-		, printer: req.printer.toString() // printer name
+		, printer: data.printer.toString() // printer name
 		, type: 'RAW' // type: RAW, TEXT, PDF, JPEG, .. depends on platform
 		, success:function(jobID){
 			console.log("sent to printer with ID: "+jobID);
