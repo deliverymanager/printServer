@@ -134,18 +134,18 @@ app.post('/printOrder', function(req, res) {
     //It should accept more than one printers as input.
     var str = "\x1B\x40";
 
-    if (data.printerBrand === "Star TSP-100 Series" && data.printerCodepage === 'CP869') {
+    if (data.printerBrand.toString() === "Star TSP-100 Series" && data.printerCodepage.toString() === 'CP869') {
         str += "\x1B\x1D\x74\x11"; // This sets the code page to CP869
-    } else if (data.printerBrand === "Star TSP-100 Series" && data.printerCodepage === 'CP737') {
+    } else if (data.printerBrand.toString() === "Star TSP-100 Series" && data.printerCodepage.toString() === 'CP737') {
         str += "\x1B\x1D\x74\x0F"; // This sets the code page to CP737
-    } else if (data.printerBrand === "Casio" && data.printerCodepage === 'CP737') {
+    } else if (data.printerBrand.toString() === "Casio" && data.printerCodepage.toString() === 'CP737') {
         //This is a hardware dependent command to "Cancel Kanji character mode".
         //This command can be used only for the Japanese, Simplified Chinese, Traditional Chinese, and Korean models.
         //My model is usung as default Simplified Chinese.
         //This command should be executed again after printer resets or powers down.
         //If Kanji mode is canceled, the printer processes a character code as a 1-byte code of alphanumeric Katakana characters.
         str += "\x1B\x74\x18"; // This sets the code page to CP737 Decimal (27 64 27 116 24)
-    } else if ((data.printerBrand === "Xprinter" || data.printerBrand === "OCOM") && data.printerCodepage === 'CP737') {
+    } else if ((data.printerBrand.toString() === "Xprinter" || data.printerBrand.toString() === "OCOM") && data.printerCodepage.toString() === 'CP737') {
         //This is a hardware dependent command to "Cancel Kanji character mode".
         //This command can be used only for the Japanese, Simplified Chinese, Traditional Chinese, and Korean models.
         //My model is usung as default Simplified Chinese.
@@ -154,8 +154,7 @@ app.post('/printOrder', function(req, res) {
         str += "\x1C\x2E";
         str += "\x1B\x74\x18"; // This sets the code page to CP737 Decimal (27 64 27 116 24)
     }
-    str += "\x1C\x2E";
-    str += "\x1B\x74\x18"; // This sets the code page to CP737 Decimal (27 64 27 116 24)
+
     //Resettinh styling!
     if (data.printerBrand == "Star TSP-100 Series") {
         str += "\x1B\x1D\x61\x00"; // Centering 1B 1D 61 01 for STAR center 00 for left and 02 for right
