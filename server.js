@@ -240,7 +240,8 @@ app.post('/printOrder', function(req, res) {
             console.log("sent to printer with ID: " + jobID);
             var status = printer.getJob(data.printer, jobID);
             res.json({
-                message: status.status[0]
+                //message: status.status[0]
+                message: printer.getJob(data.printer, jobID)
             });
         },
         error: function(err) {
