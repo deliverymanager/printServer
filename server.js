@@ -100,6 +100,25 @@ app.post('/printOrder', function(req, res) {
             str += "\x1E";
             str += "*** " + order_id + " ***\r\n";
             str += "\x1B\x1D\x61\x00"; // Centering 1B 1D 61 01 for STAR center 00 for left and 02 for right
+        } else if (printerBrand == "OCOM") {
+            str += "\r\n"; //New line command! Important otherwise barcode after that will not work!
+            str += "\x1B\x61\x01"; // Centering
+            str += "\x1D\x48\x00";
+            str += "\x1D\x68\x60"; //Barcode height to 70 dots default is 165. The value must not ralate to other actions
+            str += "\x1D\x6B\x04";
+            tempOrderId = order_id;
+            tempCount = store_id;
+            tempRes = tempOrderId.substr(tempCount.length);
+            i = 0;
+            while (tempRes.charAt(i) === 0) {
+                i++;
+            }
+            tempRes = tempRes.substr(i);
+            //applet.append("-W00000159Q");
+            str += "" + tempRes + ".";
+            str += "\x00";
+            str += "*** " + order_id + " ***\r\n";
+            str += "\x1B\x21\x00";
         } else {
             str += "\r\n"; //New line command! Important otherwise barcode after that will not work!
             str += "\x1B\x61\x01"; // Centering
