@@ -166,7 +166,7 @@ app.post('/printOrder', function(req, res) {
 		str += printBarcode(data.print_barcode, data.barcodeTopBottom, data.order_id, data.store_id, data.printerBrand);
 	}
 	
-	str += data.order_details.toString();
+	str += data.order_details;
 	
 	//Checking to see if there is a barcode to print at the bottom
 	if((data.print_barcode==1)&&(data.barcodeTopBottom == 1)){
@@ -210,12 +210,12 @@ app.post('/printOrder', function(req, res) {
     var printer = require("printer");
 	
 	printer.printDirect({data:buffer
-		, printer: data.printer.toString() // printer name
+		, printer: data.printer // printer name
 		, type: 'RAW' // type: RAW, TEXT, PDF, JPEG, .. depends on platform
 		, success:function(jobID){
 			console.log("sent to printer with ID: "+jobID);
 			res.json({
-				message: 'success'
+				message: data.order_details
 			});
 		}
 		, error:function(err){
