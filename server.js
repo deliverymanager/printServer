@@ -166,7 +166,7 @@ app.post('/printOrder', function(req, res) {
 		str += printBarcode(data.print_barcode, data.barcodeTopBottom, data.order_id, data.store_id, data.printerBrand);
 	}
 	
-	str += data.order_details;
+	str += data.order_details.toString();
 	
 	//Checking to see if there is a barcode to print at the bottom
 	if((data.print_barcode==1)&&(data.barcodeTopBottom == 1)){
