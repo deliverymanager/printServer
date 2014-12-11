@@ -116,7 +116,7 @@ app.post('/printOrder', function(req, res) {
             }
             tempRes = tempRes.substr(i);
             //applet.append("-W00000159Q");
-            str += " " + tempRes + ".";
+            str += tempRes;
             str += "\x00";
             str += "*** " + order_id + " ***\r\n";
 
