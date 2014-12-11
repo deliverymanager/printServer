@@ -73,7 +73,7 @@ app.get('/getPrinters', function(req, res) {
 });
 
 app.post('/printOrder', function(req, res) {
-	//json parameters printerBrand, printerCodepage, print_barcode, barcodeTopBottom, order_id, store_id, order_details, auto_cutter
+	//json parameters: printer, printerBrand, printerCodepage, print_barcode, barcodeTopBottom, order_id, store_id, order_details, auto_cutter
     console.log("/print was just called");
 	
 	var printBarcode = function(print_barcode, barcodeTopBottom, order_id, store_id, printerBrand) {
@@ -144,7 +144,7 @@ app.post('/printOrder', function(req, res) {
 		//This command should be executed again after printer resets or powers down.
 		//If Kanji mode is canceled, the printer processes a character code as a 1-byte code of alphanumeric Katakana characters.
 		str += "\x1B\x74\x18"; // This sets the code page to CP737 Decimal (27 64 27 116 24)
-	}else if(req.printerBrand == "Xprinter" && req.printerCodepage == 'CP737'){
+	}else if((req.printerBrand == "Xprinter" || req.printerBrand == "OCOM")&& req.printerCodepage == 'CP737'){
 		//This is a hardware dependent command to "Cancel Kanji character mode".
 		//This command can be used only for the Japanese, Simplified Chinese, Traditional Chinese, and Korean models.
 		//My model is usung as default Simplified Chinese.
@@ -189,8 +189,9 @@ app.post('/printOrder', function(req, res) {
 	if(req.auto_cutter==1){
 		// Cut receipt
 		if(req.printerBrand == "Star TSP-100 Series"){
-			console.log("Star cut");
 			str += "\x1B\x64\x00";
+		}else if(req.printerBrand == "OCOM"){
+			str += "\x1D\x56\x42\x18";
 		}else{
 			str += "\x1B\x69";
 		}
@@ -208,7 +209,7 @@ app.post('/printOrder', function(req, res) {
     var printer = require("printer");
 	
 	printer.printDirect({data:buffer
-		, printer:'POS' // printer name
+		, printer: req.printer // printer name
 		, type: 'RAW' // type: RAW, TEXT, PDF, JPEG, .. depends on platform
 		, success:function(jobID){
 			console.log("sent to printer with ID: "+jobID);
