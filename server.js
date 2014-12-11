@@ -165,7 +165,7 @@ app.post('/printOrder', function(req, res) {
 		str += printBarcode(req.print_barcode, req.barcodeTopBottom, req.order_id, req.store_id, req.printerBrand);
 	}
 	
-	str += parseString(req.order_details);
+	str += req.order_details.toString();
 	
 	//Checking to see if there is a barcode to print at the bottom
 	if((req.print_barcode==1)&&(req.barcodeTopBottom == 1)){
@@ -207,10 +207,9 @@ app.post('/printOrder', function(req, res) {
 	
     //res.json is used usually when I want to return data from an API
     var printer = require("printer");
-	var printerName = parseString(req.printer);
 	
 	printer.printDirect({data:buffer
-		, printer: printerName // printer name
+		, printer: req.printer.toString() // printer name
 		, type: 'RAW' // type: RAW, TEXT, PDF, JPEG, .. depends on platform
 		, success:function(jobID){
 			console.log("sent to printer with ID: "+jobID);
