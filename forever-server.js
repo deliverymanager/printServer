@@ -32,6 +32,6 @@ new CronJob('00 * * * * *', function(){
 
 	var options = {cwd:"C:\\printServer"};
 
-	exec("git status && git reset --hard && git pull", options, puts);
+	exec("git status && git reset --hard FETCH_HEAD && git pull", options, puts);
 
 }, null, true, "Europe/Athens");
