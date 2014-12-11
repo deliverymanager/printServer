@@ -115,9 +115,12 @@ app.post('/printOrder', function(req, res) {
             }
             tempRes = tempRes.substr(i);
             //applet.append("-W00000159Q");
-            str += "" + tempRes + ".";
+            str += " " + tempRes + ".";
             str += "\x00";
             str += "*** " + order_id + " ***\r\n";
+
+            str += "\r\n\x1B\x61\x01\x1D\x48\x00\x1D\x68\x60\x1D\x6B\x04 9000002345.\x00***90000002345****\n\n";
+
             str += "\x1B\x21\x00";
         } else {
             str += "\r\n"; //New line command! Important otherwise barcode after that will not work!
