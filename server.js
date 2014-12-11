@@ -238,9 +238,9 @@ app.post('/printOrder', function(req, res) {
         type: 'RAW', // type: RAW, TEXT, PDF, JPEG, .. depends on platform
         success: function(jobID) {
             console.log("sent to printer with ID: " + jobID);
-            
+
             res.json({
-                message: printer.getJob(data.printer.status[0], jobID)
+                message: printer.getJob(data.printer.status, jobID)
             });
         },
         error: function(err) {
