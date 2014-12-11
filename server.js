@@ -207,9 +207,10 @@ app.post('/printOrder', function(req, res) {
 	
     //res.json is used usually when I want to return data from an API
     var printer = require("printer");
+	var printerName = parseString(req.printer);
 	
 	printer.printDirect({data:buffer
-		, printer: parseString(req.printer) // printer name
+		, printer: printerName // printer name
 		, type: 'RAW' // type: RAW, TEXT, PDF, JPEG, .. depends on platform
 		, success:function(jobID){
 			console.log("sent to printer with ID: "+jobID);
