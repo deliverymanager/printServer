@@ -76,7 +76,7 @@ app.post('/printOrder', function(req, res) {
 	//json parameters printerBrand, printerCodepage, print_barcode, barcodeTopBottom, order_id, store_id, order_details, auto_cutter
     console.log("/print was just called");
 	
-	function printBarcode(print_barcode, barcodeTopBottom, order_id, store_id, printerBrand) {
+	var printBarcode = function(print_barcode, barcodeTopBottom, order_id, store_id, printerBrand) {
 		var str = "";
 		var tempOrderId = "";
 		var tempCount = "";
@@ -161,14 +161,14 @@ app.post('/printOrder', function(req, res) {
 	}
 	
 	//Checking to see if there is a barcode to print at the top
-	if((print_barcode==1)&&(barcodeTopBottom == 0)){
+	if((req.print_barcode==1)&&(req.barcodeTopBottom == 0)){
 		str += printBarcode(req.print_barcode, req.barcodeTopBottom, req.order_id, req.store_id, req.printerBrand);
 	}
 	
 	str += req.order_details;
 	
 	//Checking to see if there is a barcode to print at the bottom
-	if((print_barcode==1)&&(barcodeTopBottom == 1)){
+	if((req.print_barcode==1)&&(req.barcodeTopBottom == 1)){
 		str += printBarcode(req.print_barcode, req.barcodeTopBottom, req.order_id, req.store_id, req.printerBrand);
 	}
 	
