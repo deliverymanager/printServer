@@ -145,7 +145,7 @@ app.post('/printOrder', function(req, res) {
 		//This command should be executed again after printer resets or powers down.
 		//If Kanji mode is canceled, the printer processes a character code as a 1-byte code of alphanumeric Katakana characters.
 		str += "\x1B\x74\x18"; // This sets the code page to CP737 Decimal (27 64 27 116 24)
-	}else if((data.printerBrand == "Xprinter" || data.printerBrand == "OCOM")&& data.printerCodepage == 'CP737'){
+	}else if((data.printerBrand == "Xprinter" || data.printerBrand == "OCOM") && data.printerCodepage == 'CP737'){
 		//This is a hardware dependent command to "Cancel Kanji character mode".
 		//This command can be used only for the Japanese, Simplified Chinese, Traditional Chinese, and Korean models.
 		//My model is usung as default Simplified Chinese.
