@@ -72,10 +72,132 @@ app.get('/getPrinters', function(req, res) {
     });
 });
 
-app.get('/print', function(req, res) {
+app.post('/printOrder', function(req, res) {
+	//json parameters printerBrand, printerCodepage, print_barcode, barcodeTopBottom, order_id, store_id, order_details, auto_cutter
     console.log("/print was just called");
 	
-	var str = "\x1B\x40\x1C\x2E\x1B\x74\x18Lets see Greek: φψΩ Ελληνικά Γράμματα ΕΠΙΤΕΛΟΥΣ περισσότερα πολλά πολλά!!!!!! \n\n\n\nThis Awsome Tool!!!\r\n\x1B\x61\x01\x1D\x48\x00\x1D\x68\x60\x1D\x6B\x04 9000002345.\x00***90000002345****\n\n\n\x1B\x2A\x00\x30\x00\x01\x02\x04\x08\x10\x20\x40\x80\x80\x40\x20\x10\x08\x04\x02\x01\x01\x02\x04\x08\x10\x20\x40\x80\x80\x40\x20\x10\x08\x04\x02\x01\x01\x02\x04\x08\x10\x20\x40\x80\x80\x40\x20\x10\x08\x04\x02\x01\n\n\x1D\x56\x42\x18";
+	function printBarcode(print_barcode, barcodeTopBottom, order_id, store_id, printerBrand) {
+		var str = "";
+		var tempOrderId = "";
+		var tempCount = "";
+		var tempRes = "";
+		var i = 0;
+		if(printerBrand == "Star TSP-100 Series"){
+			str += "\r\n" ;	//New line command! Important otherwise barcode after that will not work!
+			str += "\x1B\x1D\x61\x01"; // Centering 1B 1D 61 01 for STAR center 00 for left and 02 for right
+			str += "\x1B\x62\x04\x01\x05\x60";
+			tempOrderId = order_id;
+			tempCount = store_id;
+			tempRes = tempOrderId.substr(tempCount.length);
+			i=0;
+			while(tempRes.charAt(i)==0){
+				i++
+			}
+			tempRes = tempRes.substr(i);
+			//applet.append("-W00000159Q");
+			str += "--"+tempRes+".";
+			str +=  "\x1E";
+			str += "*** "+order_id+" ***\r\n";
+			str += "\x1B\x1D\x61\x00"; // Centering 1B 1D 61 01 for STAR center 00 for left and 02 for right
+		}else{
+			str += "\r\n";	//New line command! Important otherwise barcode after that will not work!
+			str += "\x1B\x61\x01"; // Centering
+			str += "\x1D\x48\x00";
+			str += "\x1D\x68\x60";//Barcode height to 70 dots default is 165. The value must not ralate to other actions
+			str += "\x1D\x6B\x04";
+			tempOrderId = order_id;
+			tempCount = store_id;
+			tempRes = tempOrderId.substr(tempCount.length);
+			i=0;
+			while(tempRes.charAt(i)==0){
+				i++
+			}
+			tempRes = tempRes.substr(i);
+			//applet.append("-W00000159Q");
+			str += "--"+tempRes+".";
+			str += "\x00";
+			str += "*** "+order_id+" ***\r\n";
+			str += '\x1B\x21\x00';
+		}
+		
+		//Resettinh styling!
+		if(printerBrand == "Star TSP-100 Series"){
+			str += "\x1B\x1D\x61\x00"; // Centering 1B 1D 61 01 for STAR center 00 for left and 02 for right
+		}else{
+			str += "\x1B\x21\x00"; // Commands to reset the styling.
+		}
+		return str;
+	}
+	
+
+	//It should accept more than one printers as input.
+	var str = "\x1B\x40";
+	
+	if(req.printerBrand == "Star TSP-100 Series" && req.printerCodepage == 'CP869'){
+		str += "\x1B\x1D\x74\x11"; // This sets the code page to CP869
+	}else if(req.printerBrand == "Star TSP-100 Series" && req.printerCodepage == 'CP737'){
+		str += "\x1B\x1D\x74\x0F"; // This sets the code page to CP737
+	}else if(req.printerBrand == "Casio" && req.printerCodepage == 'CP737'){
+		//This is a hardware dependent command to "Cancel Kanji character mode".
+		//This command can be used only for the Japanese, Simplified Chinese, Traditional Chinese, and Korean models.
+		//My model is usung as default Simplified Chinese.
+		//This command should be executed again after printer resets or powers down.
+		//If Kanji mode is canceled, the printer processes a character code as a 1-byte code of alphanumeric Katakana characters.
+		str += "\x1B\x74\x18"; // This sets the code page to CP737 Decimal (27 64 27 116 24)
+	}else if(req.printerBrand == "Xprinter" && req.printerCodepage == 'CP737'){
+		//This is a hardware dependent command to "Cancel Kanji character mode".
+		//This command can be used only for the Japanese, Simplified Chinese, Traditional Chinese, and Korean models.
+		//My model is usung as default Simplified Chinese.
+		//This command should be executed again after printer resets or powers down.
+		//If Kanji mode is canceled, the printer processes a character code as a 1-byte code of alphanumeric Katakana characters.
+		str += "\x1C\x2E";
+		str += "\x1B\x74\x18"; // This sets the code page to CP737 Decimal (27 64 27 116 24)
+	}
+	//Resettinh styling!
+	if(req.printerBrand == "Star TSP-100 Series"){
+		str += "\x1B\x1D\x61\x00"; // Centering 1B 1D 61 01 for STAR center 00 for left and 02 for right
+	}else{
+		str += "\x1B\x21\x00"; // Commands to reset the styling.
+	}
+	
+	//Checking to see if there is a barcode to print at the top
+	if((print_barcode==1)&&(barcodeTopBottom == 0)){
+		str += printBarcode(req.print_barcode, req.barcodeTopBottom, req.order_id, req.store_id, req.printerBrand);
+	}
+	
+	str += req.order_details;
+	
+	//Checking to see if there is a barcode to print at the bottom
+	if((print_barcode==1)&&(barcodeTopBottom == 1)){
+		str += printBarcode(req.print_barcode, req.barcodeTopBottom, req.order_id, req.store_id, req.printerBrand);
+	}
+	
+	//Resettinh styling!
+	if(req.printerBrand == "Star TSP-100 Series"){
+		str += "\x1B\x1D\x61\x00"; // Centering 1B 1D 61 01 for STAR center 00 for left and 02 for right
+	}else{
+		str += "\x1B\x21\x00"; // Commands to reset the styling.
+	}
+	
+	//Preparing for cut!
+	str += "\r\n";
+	str += "\r\n";
+	str += "\r\n";
+	str += "\r\n";
+
+	str += "\x1B\x40";
+	if(req.auto_cutter==1){
+		// Cut receipt
+		if(req.printerBrand == "Star TSP-100 Series"){
+			console.log("Star cut");
+			str += "\x1B\x64\x00";
+		}else{
+			str += "\x1B\x69";
+		}
+	}
+	
+	
+	//str += "Lets see Greek: φψΩ Ελληνικά Γράμματα ΕΠΙΤΕΛΟΥΣ περισσότερα πολλά πολλά!!!!!! \n\n\n\nThis Awsome Tool!!!\r\n\x1B\x61\x01\x1D\x48\x00\x1D\x68\x60\x1D\x6B\x04 9000002345.\x00***90000002345****\n\n\n\x1B\x2A\x00\x30\x00\x01\x02\x04\x08\x10\x20\x40\x80\x80\x40\x20\x10\x08\x04\x02\x01\x01\x02\x04\x08\x10\x20\x40\x80\x80\x40\x20\x10\x08\x04\x02\x01\x01\x02\x04\x08\x10\x20\x40\x80\x80\x40\x20\x10\x08\x04\x02\x01\n\n\x1D\x56\x42\x18";
 	
 	//The barcode doesn't accept --
 	var buffer = legacy.encode(str, 'cp737', {
@@ -100,6 +222,9 @@ app.get('/print', function(req, res) {
 			});
 		}
 	});
+	
+	
+	
 });
 
 
