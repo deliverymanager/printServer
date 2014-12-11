@@ -32,7 +32,7 @@ for (var k in interfaces) {
 }
 
 console.log(addresses[0]);
-
+app.use(bodyParser.json());
 //Here I am placing the cron jobs
 //var cron = require("./cronjobs");
 app.use(function(req, res, next) {
@@ -47,7 +47,7 @@ app.use(function(req, res, next) {
 // this will let us get the data from a POST
 //This is an express middleware
 //It handles the data sent before sending them to the routes.
-app.use(bodyParser.json());
+
 app.get('/printServer', function(req, res) {
     console.log("/printServer was just called");
     //res.json is used usually when I want to return data from an API
