@@ -218,6 +218,7 @@ app.post('/printOrder', function(req, res) {
 			});
 		}
 		, error:function(err){
+			throw err;
 			res.json({
 				message: err
 			});
