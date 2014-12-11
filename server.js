@@ -239,10 +239,19 @@ app.post('/printOrder', function(req, res) {
         success: function(jobID) {
             console.log("sent to printer with ID: " + jobID);
             var status = printer.getJob(data.printer, jobID);
-            res.json({
-                //message: status.status[0]
-                message: printer.getJob(data.printer, jobID)
-            });
+            if (status.status[0] == "PRINTING") {
+                res.json({
+                    //message: status.status[0]
+                    message: "success" //Η εντολή εκτύπωσης εστάλει στον εκτυπωτή
+                });
+            } else {
+                res.json({
+                    //message: status.status[0]
+                    message: "sentButNotPrinting" 
+                    //Η εντολή εκτύπωσης εστάλει στον εκτυπωτή αλλά για κάποιο λόγο
+                });
+            }
+
         },
         error: function(err) {
             res.json({
