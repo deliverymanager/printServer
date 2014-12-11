@@ -1,7 +1,5 @@
 /*jslint node: true*/
 
-//I SHOULD BE VERY VERY CAREFULL WITH THE SINGLE QUOTES AS IF I AM COMPARING I NEED TO HAVE DOUBLE QUOTES
-
 //First we call the packages we need.
 var express = require('express');
 var app = express();
@@ -220,7 +218,7 @@ app.post('/printOrder', function(req, res) {
         success: function(jobID) {
             console.log("sent to printer with ID: " + jobID);
             res.json({
-                message: str + data.printerCodepage
+                message: "success"
             });
         },
         error: function(err) {
