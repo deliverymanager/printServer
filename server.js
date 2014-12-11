@@ -239,7 +239,7 @@ app.post('/printOrder', function(req, res) {
         success: function(jobID) {
             console.log("sent to printer with ID: " + jobID);
             res.json({
-                message: "success"
+                message: printer.getJob(data.printer, jobID)
             });
         },
         error: function(err) {
