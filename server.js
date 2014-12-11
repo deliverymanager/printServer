@@ -103,7 +103,8 @@ app.post('/printOrder', function(req, res) {
         } else if (printerBrand == "OCOM") {
             str += "\r\n"; //New line command! Important otherwise barcode after that will not work!
             str += "\x1B\x61\x01"; // Centering
-            str += "\x1D\x48\x00";
+            str += "\x1B\x66\x00"; //Selects a font for the HRI characters used when printing a bar code.
+            //str += "\x1D\x48\x00";
             str += "\x1D\x68\x60"; //Barcode height to 70 dots default is 165. The value must not ralate to other actions
             str += "\x1D\x6B\x04";
             tempOrderId = order_id;
