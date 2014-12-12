@@ -33,19 +33,19 @@ for (var k in interfaces) {
 
 console.log(addresses[0]);
 
-
 // Fetch the computer's mac address
 require('getmac').getMac(function(err,macAddress){
     if (err)  throw err;
-    console.log(macAddress);    
+	console.log(macAddress);
+	// Validate that an address is a mac address
+	if ( require('getmac').isMac(macAddress) ) {
+		console.log('valid mac');
+	}else {
+		console.log('invalid mac');
+	}
+    
 });
 
-// Validate that an address is a mac address
-if ( require('getmac').isMac(macAddress) ) {
-    console.log('valid mac');
-}else {
-    console.log('invalid mac');
-}
 
 
 app.use(bodyParser.json());
