@@ -12,6 +12,7 @@
     "cron": "^1.0.5",
     "express": "~4.9.x",
     "forever-monitor": "^1.5.2",
+    "getmac": "^1.0.6",
     "legacy-encoding": "^3.0.0",
     "local-ip": "^1.0.1",
     "moment": "^2.8.4",
