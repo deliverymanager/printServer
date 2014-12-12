@@ -21,6 +21,7 @@ console.log(os.arch());
 console.log(os.release());
 
 var interfaces = os.networkInterfaces();
+console.log(interfaces);
 var addresses = [];
 for (var k in interfaces) {
     for (var k2 in interfaces[k]) {

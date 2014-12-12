@@ -13,6 +13,13 @@ child.start();
 
 console.log(process.env.STOREID);
 
+
+var isOnline = require('is-online');
+
+isOnline(function(err, online) {
+    console.log(online);
+    //=> true
+});
 var CronJob = require('cron').CronJob;
 new CronJob('00 * * * * *', function(){
 	
