@@ -47,12 +47,15 @@ app.use(function(req, res, next) {
 // this will let us get the data from a POST
 //This is an express middleware
 //It handles the data sent before sending them to the routes.
+//The STOREID environment variable should be declared with the nssm GUI STOREID=10 without empty spaces!!!!
 console.log(process.env.STOREID);
+var store_id = process.env.STOREID;
 app.get('/printServer', function(req, res) {
     console.log("/printServer was just called");
     //res.json is used usually when I want to return data from an API
     res.json({
-        message: process.env.STOREID
+		message: "success",
+        store_id: store_id
     });
 });
 
