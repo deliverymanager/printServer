@@ -247,8 +247,10 @@ app.post('/printOrder', function(req, res) {
             } else {
                 res.json({
                     //message: status.status[0]
-                    message: "sentButNotPrinting" 
+                    message: "sentButNotPrinting"
                     //Η εντολή εκτύπωσης εστάλει στον εκτυπωτή αλλά για κάποιο λόγο
+                    //Πολύ πιθανό να είναι κλειστός ο υπολογιστής.
+                    //Βέβαια θα έχει γίνει ένας έλεγχος
                 });
             }
 
