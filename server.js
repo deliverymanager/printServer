@@ -30,7 +30,6 @@ for (var k in interfaces) {
         }
     }
 }
-
 console.log(addresses[0]);
 
 app.use(bodyParser.json());

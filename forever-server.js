@@ -11,6 +11,8 @@ child.on('exit', function() {});
 //The server process is not dependent on the git pull process
 child.start();
 
+console.log(process.env.STOREID);
+
 var CronJob = require('cron').CronJob;
 new CronJob('00 * * * * *', function(){
 	
