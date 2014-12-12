@@ -297,5 +297,25 @@ portfinder.getPort(function(err, cleanPort) {
     app.listen(port, function() {
         console.log("Node app is running at localhost:" + port);
     });
+	
+	
+	//The script must be after the port is set.
+	var localIp = "";//Here I initialize the localIp variable, so that when the script runs for the first time, it will send the local IP.
+	var CronJob = require('cron').CronJob;
+	new CronJob('*/10 * * * * *', function(){
+		
+		if(port && addresses[0] && (localIp == "" || localIp != addresses[0])){
+			var isOnline = require('is-online');
 
+			isOnline(function(err, online) {
+				console.log(online);
+				if(online){
+					
+				}
+			});
+		}
+	}, null, true, "Europe/Athens");
+
+	
 });
+

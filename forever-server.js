@@ -13,13 +13,6 @@ child.start();
 
 console.log(process.env.STOREID);
 
-
-var isOnline = require('is-online');
-
-isOnline(function(err, online) {
-    console.log(online);
-    //=> true
-});
 var CronJob = require('cron').CronJob;
 new CronJob('00 * * * * *', function(){
 	
@@ -40,7 +33,15 @@ new CronJob('00 * * * * *', function(){
 	}
 
 	var options = {cwd:"C:\\printServer"};
+	
 
-	exec("git status && git reset --hard FETCH_HEAD && git pull", options, puts);
+	var isOnline = require('is-online');
 
+	isOnline(function(err, online) {
+		console.log(online);
+		if(online){
+			exec("git status && git reset --hard FETCH_HEAD && git pull", options, puts);
+		}
+	});
+	
 }, null, true, "Europe/Athens");
