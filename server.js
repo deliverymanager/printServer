@@ -47,12 +47,12 @@ app.use(function(req, res, next) {
 // this will let us get the data from a POST
 //This is an express middleware
 //It handles the data sent before sending them to the routes.
-
+console.log(process.env.STOREID);
 app.get('/printServer', function(req, res) {
     console.log("/printServer was just called");
     //res.json is used usually when I want to return data from an API
     res.json({
-        message: 'Live'
+        message: process.env.STOREID
     });
 });
 
