@@ -336,7 +336,7 @@ portfinder.getPort(function(err, cleanPort) {
                             //log.info(body);
                             //log.info(rows);
                             if (body.ip.ok == 1) {
-                                localIp = body.ip.value.ip;
+                                localIp = body.ip.lastErrorObject.value.ip;
                                 log.info("localIp: " + localIp);
                             } else {
                                 log.info(body);
