@@ -330,8 +330,12 @@ portfinder.getPort(function(err, cleanPort) {
                             if (body.ip.ok == 1) {
                                 localIp = body.ip.value.ip;
                                 console.log("localIp: " + localIp);
-                            }
-                        }
+                            }else{
+								console.log(body);
+							}
+                        }else{
+							console.log(error);
+						}
 
                     });
                 }
