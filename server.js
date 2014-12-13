@@ -316,7 +316,7 @@ portfinder.getPort(function(err, cleanPort) {
             var isOnline = require('is-online');
 
             isOnline(function(err, online) {
-                console.log(online);
+                console.log("online: "+ online);
                 if (online) {
                     request({
                         uri: "https://eudeliveryapp.herokuapp.com/printserver/savelocalip",
