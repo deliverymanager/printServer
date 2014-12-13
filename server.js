@@ -10,8 +10,7 @@ var legacy = require('legacy-encoding');
 
 var Log = require('log'),
     fs = require('fs'),
-    stream = fs.createReadStream(__dirname + '/file.log'),
-    log = new Log('debug', stream);
+    log = new Log('debug', fs.createWriteStream('file.log'));
 
 log.on('line', function(line) {
     console.log(line);
@@ -22,15 +21,15 @@ log.on('line', function(line) {
 //mongoDbConnection(function(db) {});
 
 var os = require('os');
-console.log(os.platform());
-console.log(os.type());
+log.info(os.platform());
+log.info(os.type());
 
-console.log(os.hostname());
-console.log(os.arch());
-console.log(os.release());
+log.info(os.hostname());
+log.info(os.arch());
+log.info(os.release());
 
 var interfaces = os.networkInterfaces();
-console.log(interfaces);
+log.info(interfaces);
 var addresses = [];
 for (var k in interfaces) {
     for (var k2 in interfaces[k]) {
@@ -40,7 +39,7 @@ for (var k in interfaces) {
         }
     }
 }
-console.log(addresses[0]);
+log.info(addresses[0]);
 
 app.use(bodyParser.json());
 //Here I am placing the cron jobs
@@ -58,10 +57,10 @@ app.use(function(req, res, next) {
 //This is an express middleware
 //It handles the data sent before sending them to the routes.
 //The STOREID environment variable should be declared with the nssm GUI STOREID=10 without empty spaces!!!!
-console.log(process.env.STOREID);
+log.info(process.env.STOREID);
 var store_id = process.env.STOREID;
 app.get('/printServer', function(req, res) {
-    console.log("/printServer was just called");
+    log.info("/printServer was just called");
     //res.json is used usually when I want to return data from an API
     res.json({
         message: "success",
@@ -70,11 +69,11 @@ app.get('/printServer', function(req, res) {
 });
 
 app.get('/getPrinters', function(req, res) {
-    console.log("/printServer was just called");
+    log.info("/printServer was just called");
     //res.json is used usually when I want to return data from an API
     var printer = require("printer");
     var util = require('util');
-    console.log("installed printers:\n" + util.inspect(printer.getPrinters(), {
+    log.info("installed printers:\n" + util.inspect(printer.getPrinters(), {
         colors: true,
         depth: 10
     }));
@@ -88,7 +87,7 @@ app.get('/getPrinters', function(req, res) {
 app.post('/printOrder', function(req, res) {
     var data = req.body;
     //json parameters: printer, printerBrand, printerCodepage, print_barcode, barcodeTopBottom, order_id, store_id, order_details, auto_cutter
-    console.log("/print was just called");
+    log.info("/print was just called");
 
     var printBarcode = function(print_barcode, barcodeTopBottom, order_id, store_id, printerBrand) {
         var str = "";
@@ -250,7 +249,7 @@ app.post('/printOrder', function(req, res) {
         printer: data.printer, // printer name
         type: 'RAW', // type: RAW, TEXT, PDF, JPEG, .. depends on platform
         success: function(jobID) {
-            console.log("sent to printer with ID: " + jobID);
+            log.info("sent to printer with ID: " + jobID);
             var status = printer.getJob(data.printer, jobID);
             if (status.status[0] == "PRINTING") {
                 res.json({
@@ -280,14 +279,14 @@ app.post('/printOrder', function(req, res) {
 //API to check the version of the server.
 
 app.get('/testError', function(req, res) {
-    console.log("/testError was just called");
+    log.info("/testError was just called");
     //res.json is used usually when I want to return data from an API
     //throw new Error('something bad happened');
     var fs = require('fs');
 
     fs.readFile('somefile.txt', function(err, data) {
         if (err) throw err;
-        console.log(data);
+        log.info(data);
     });
 });
 
@@ -304,7 +303,7 @@ portfinder.getPort(function(err, cleanPort) {
     //
     port = cleanPort;
     app.listen(port, function() {
-        console.log("Node app is running at localhost:" + port);
+        log.info("Node app is running at localhost:" + port);
     });
 
     var request = require("request");
@@ -316,7 +315,7 @@ portfinder.getPort(function(err, cleanPort) {
             var isOnline = require('is-online');
 
             isOnline(function(err, online) {
-                console.log("online: "+ online);
+                log.info("online: "+ online);
                 if (online) {
                     request({
                         uri: "https://eudeliveryapp.herokuapp.com/printserver/savelocalip",
@@ -332,25 +331,25 @@ portfinder.getPort(function(err, cleanPort) {
                             "port": port
                         })
                     }, function(error, response, body) {
-                        //console.log(body);
+                        //log.info(body);
                         if (!error && response.statusCode == 200) {
-                            //console.log(body);
-                            //console.log(rows);
+                            //log.info(body);
+                            //log.info(rows);
                             if (body.ip.ok == 1) {
                                 localIp = body.ip.value.ip;
-                                console.log("localIp: " + localIp);
+                                log.info("localIp: " + localIp);
                             } else {
-                                console.log(body);
+                                log.info(body);
                             }
                         } else {
-                            console.log(error);
+                            log.info(error);
                         }
 
                     });
                 }
             });
         } else {
-            console.log("The store_id is not set");
+            log.info("The store_id is not set");
         }
     }, null, true, "Europe/Athens");
 
