@@ -55,7 +55,7 @@ app.get('/printServer', function(req, res) {
     console.log("/printServer was just called");
     //res.json is used usually when I want to return data from an API
     res.json({
-		message: "success",
+        message: "success",
         store_id: store_id
     });
 });
@@ -297,25 +297,47 @@ portfinder.getPort(function(err, cleanPort) {
     app.listen(port, function() {
         console.log("Node app is running at localhost:" + port);
     });
-	
-	
-	//The script must be after the port is set.
-	var localIp = "";//Here I initialize the localIp variable, so that when the script runs for the first time, it will send the local IP.
-	var CronJob = require('cron').CronJob;
-	new CronJob('*/10 * * * * *', function(){
-		
-		if(port && addresses[0] && (localIp == "" || localIp != addresses[0])){
-			var isOnline = require('is-online');
 
-			isOnline(function(err, online) {
-				console.log(online);
-				if(online){
-					
-				}
-			});
-		}
-	}, null, true, "Europe/Athens");
+    var request = require("request");
+    //The script must be after the port is set.
+    var localIp = ""; //Here I initialize the localIp variable, so that when the script runs for the first time, it will send the local IP.
+    var CronJob = require('cron').CronJob;
+    new CronJob('*/3 * * * * *', function() {
+        if (store_id !== "undefined" && store_id && port && addresses[0] && (localIp === "" || localIp != addresses[0])) {
+            var isOnline = require('is-online');
 
-	
+            isOnline(function(err, online) {
+                console.log(online);
+                if (online) {
+                    request({
+                        uri: "https://eudeliveryapp.herokuapp.com/printserver/savelocalip",
+                        method: "POST",
+                        timeout: 3000,
+                        followRedirect: true,
+                        maxRedirects: 10,
+                        gzip: true,
+                        json: true,
+                        body: JSON.stringify({
+                            "store_id": store_id,
+                            "ip": addresses[0],
+                            "port": port
+                        })
+                    }, function(error, response, body) {
+                        //console.log(body);
+                        if (!error && response.statusCode == 200) {
+                            //console.log(body);
+                            //console.log(rows);
+                            if (body.ip.ok == 1) {
+                                localIp = body.ip.value.ip;
+                                console.log("localIp: " + localIp);
+                            }
+                        }
+
+                    });
+                }
+            });
+        }
+    }, null, true, "Europe/Athens");
+
+
 });
-
