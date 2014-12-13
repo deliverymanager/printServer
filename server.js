@@ -8,6 +8,15 @@ var bugsnag = require("bugsnag");
 bugsnag.register("9d5907a30dcfaf8806e542fbf61cf623");
 var legacy = require('legacy-encoding');
 
+var Log = require('log'),
+    fs = require('fs'),
+    stream = fs.createReadStream(__dirname + '/file.log'),
+    log = new Log('debug', stream);
+
+log.on('line', function(line) {
+    console.log(line);
+});
+
 //Here I am creating the singleton connection to the MongoDb server.
 //This connection will be used in all the controllers and middleware in the app.
 //mongoDbConnection(function(db) {});
@@ -330,16 +339,18 @@ portfinder.getPort(function(err, cleanPort) {
                             if (body.ip.ok == 1) {
                                 localIp = body.ip.value.ip;
                                 console.log("localIp: " + localIp);
-                            }else{
-								console.log(body);
-							}
-                        }else{
-							console.log(error);
-						}
+                            } else {
+                                console.log(body);
+                            }
+                        } else {
+                            console.log(error);
+                        }
 
                     });
                 }
             });
+        } else {
+            console.log("The store_id is not set");
         }
     }, null, true, "Europe/Athens");
 

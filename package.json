@@ -15,6 +15,7 @@
     "is-online": "^3.0.0",
     "legacy-encoding": "^3.0.0",
     "local-ip": "^1.0.1",
+    "log": "^1.4.0",
     "moment": "^2.8.4",
     "moment-timezone": "^0.2.5",
     "mongodb": "~2.0.5",
