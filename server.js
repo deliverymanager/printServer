@@ -318,7 +318,8 @@ portfinder.getPort(function(err, cleanPort) {
                 log.info("ip: "+ addresses[0]);
                 log.info("store_id: "+ store_id);
                 log.info("port: "+ port);
-				var bodyTag = {"store_id": "1","ip": "192.168.1.3","port": "4950"};
+				//This doesn't need to be JSON.stringified because the json tag is set to true!
+				var bodyTag = {"store_id": store_id,"ip": addresses[0],"port": port};
                 if (online) {
                     request({
                         uri: "https://eudeliveryapp.herokuapp.com/printserver/savelocalip",
@@ -349,7 +350,7 @@ portfinder.getPort(function(err, cleanPort) {
                 }
             });
         } else {
-            log.info("The store_id is not set");
+            log.info("The IP remains the same!");
         }
     }, null, true, "Europe/Athens");
 
