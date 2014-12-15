@@ -154,7 +154,7 @@ app.post('/printOrder', function(req, res) {
         };
 
         for (var i = 0; i < toBeConverted.length; i++) {
-            var tempConverted = charConvert[str.charAt(i)];
+            var tempConverted = charConvert[toBeConverted.charAt(i)];
             if (tempConverted !== "") {
                 toBeConverted.replaceAt(i, tempConverted);
             }
