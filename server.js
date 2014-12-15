@@ -159,7 +159,7 @@ app.post('/printOrder', function(req, res) {
             log.info(tempConverted);
             if (tempConverted !== "") {
                 var tempString = toBeConverted;
-                toBeConverted = tempString.substr(0, i) + tempConverted + tempString.substr(i + tempString.length);
+                toBeConverted = tempString.substr(0, i) + tempConverted + tempString.substr(i, tempString.length);
             }
             log.info(toBeConverted);
         }
