@@ -200,7 +200,12 @@ app.post('/printOrder', function(req, res) {
         str += printBarcode(data.print_barcode, data.barcodeTopBottom, data.order_id, data.store_id, data.printerBrand);
     }
 
-    str += data.order_details;
+    if (data.greeklish == "true") {
+
+    } else {
+        str += data.order_details;
+    }
+
     //str += "Anestis Domvris τεσταρω τα Ελληνικά γράμματα!";
 
     //Checking to see if there is a barcode to print at the bottom
@@ -233,6 +238,77 @@ app.post('/printOrder', function(req, res) {
         }
     }
 
+    var greek_to_greeklish = function(toBeConverted) {
+        var charConvert = {
+            'Α': 'A',
+            'Β': 'B',
+            'Γ': 'G',
+            'Δ': 'D',
+            'Ε': 'E',
+            'Ζ': 'Z',
+            'Η': 'I',
+            'Θ': 'TH',
+            'Ι': 'I',
+            'Κ': 'K',
+            'Λ': 'L',
+            'Μ': 'M',
+            'Ν': 'N',
+            'Ξ': 'KS',
+            'Ο': 'O',
+            'Π': 'P',
+            'Ρ': 'R',
+            'Σ': 'S',
+            'Τ': 'T',
+            'Υ': 'Y',
+            'Φ': 'F',
+            'Χ': 'X',
+            'Ψ': 'PS',
+            'Ω': 'O',
+            'α': 'A',
+            'β': 'B',
+            'γ': 'G',
+            'δ': 'D',
+            'ε': 'E',
+            'ζ': 'Z',
+            'η': 'I',
+            'θ': 'TH',
+            'ι': 'I',
+            'κ': 'K',
+            'λ': 'L',
+            'μ': 'M',
+            'ν': 'N',
+            'ξ': 'KS',
+            'ο': 'O',
+            'π': 'P',
+            'ρ': 'R',
+            'σ': 'S',
+            'τ': 'T',
+            'υ': 'Y',
+            'φ': 'F',
+            'χ': 'X',
+            'ψ': 'PS',
+            'ω': 'O',
+            'ς': 'S',
+            'ά': 'A',
+            'έ': 'E',
+            'ή': 'I',
+            'ί': 'I',
+            'ό': 'O',
+            'ύ': 'Y',
+            'ώ': 'O',
+            'ϊ': 'I',
+            'ϋ': 'Y',
+            'ΐ': 'I',
+            'ΰ': 'Y'
+        };
+
+        for (var i = 0; i < toBeConverted.length; i++) {
+            var tempConverted = charConvert[str.charAt(i)];
+            if (tempConverted !== "") {
+                str.replaceAt(i, tempConverted);
+            }
+        }
+    };
 
     //str += "Lets see Greek: φψΩ Ελληνικά Γράμματα ΕΠΙΤΕΛΟΥΣ περισσότερα πολλά πολλά!!!!!! \n\n\n\nThis Awsome Tool!!!\r\n\x1B\x61\x01\x1D\x48\x00\x1D\x68\x60\x1D\x6B\x04 9000002345.\x00***90000002345****\n\n\n\x1B\x2A\x00\x30\x00\x01\x02\x04\x08\x10\x20\x40\x80\x80\x40\x20\x10\x08\x04\x02\x01\x01\x02\x04\x08\x10\x20\x40\x80\x80\x40\x20\x10\x08\x04\x02\x01\x01\x02\x04\x08\x10\x20\x40\x80\x80\x40\x20\x10\x08\x04\x02\x01\n\n\x1D\x56\x42\x18";
 
@@ -314,12 +390,16 @@ portfinder.getPort(function(err, cleanPort) {
         if (store_id !== "undefined" && store_id && port && addresses[0] && (localIp === "" || localIp != addresses[0])) {
             var isOnline = require('is-online');
             isOnline(function(err, online) {
-                log.info("online: "+ online);
-                log.info("ip: "+ addresses[0]);
-                log.info("store_id: "+ store_id);
-                log.info("port: "+ port);
-				//This doesn't need to be JSON.stringified because the json tag is set to true!
-				var bodyTag = {"store_id": store_id,"ip": addresses[0],"port": port};
+                log.info("online: " + online);
+                log.info("ip: " + addresses[0]);
+                log.info("store_id: " + store_id);
+                log.info("port: " + port);
+                //This doesn't need to be JSON.stringified because the json tag is set to true!
+                var bodyTag = {
+                    "store_id": store_id,
+                    "ip": addresses[0],
+                    "port": port
+                };
                 if (online) {
                     request({
                         uri: "https://eudeliveryapp.herokuapp.com/printserver/savelocalip",
@@ -328,15 +408,15 @@ portfinder.getPort(function(err, cleanPort) {
                         followRedirect: true,
                         maxRedirects: 10,
                         gzip: true,
-						json: true,
+                        json: true,
                         body: bodyTag
                     }, function(error, response, body) {
                         //log.info(body);
-						//var rows = JSON.parse(body);
+                        //var rows = JSON.parse(body);
                         if (!error && response.statusCode == 200) {
                             //log.info(body);
                             //log.info(rows);
-                            if (body.ip.ok == 1) {													
+                            if (body.ip.ok == 1) {
                                 localIp = body.ip.value.ip;
                                 log.info("localIp: " + localIp);
                             } else {
@@ -350,7 +430,7 @@ portfinder.getPort(function(err, cleanPort) {
                 }
             });
         } else {
-            log.info("The IP remains the same: " + localIp );
+            log.info("The IP remains the same: " + localIp);
         }
     }, null, true, "Europe/Athens");
 
