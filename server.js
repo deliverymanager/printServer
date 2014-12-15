@@ -324,12 +324,11 @@ portfinder.getPort(function(err, cleanPort) {
                         followRedirect: true,
                         maxRedirects: 10,
                         gzip: true,
-						json: true,
-                        body: JSON.stringify({
+                        body: {
                             "store_id": store_id,
                             "ip": addresses[0],
                             "port": port
-                        })
+                        }
                     }, function(error, response, body) {
                         log.info(body);
 						var rows = JSON.parse(body);
