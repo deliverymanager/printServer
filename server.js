@@ -151,7 +151,41 @@ app.post('/printOrder', function(req, res) {
             'ϊ': 'I',
             'ϋ': 'Y',
             'ΐ': 'I',
-            'ΰ': 'Y'
+            'ΰ': 'Y',
+            'Ά': 'A',
+            'Έ': 'E',
+            'Ή': 'I',
+            'Ί': 'I',
+            'Ό': 'O',
+            'Ύ': 'Y',
+            'Ώ': 'O'
+        };
+        log.info(toBeConverted.length);
+        var convertedString = "";
+        for (var i = 0; i < toBeConverted.length; i++) {
+            var tempConverted = charConvert[toBeConverted.charAt(i)];
+            log.info(tempConverted);
+            if (tempConverted && tempConverted !== "undefined") {
+                convertedString += tempConverted;
+            } else {
+                convertedString += toBeConverted.charAt(i);
+            }
+        }
+        log.info(convertedString);
+        return convertedString;
+    };
+
+    var greek_to_uppercase = function(toBeConverted) {
+        toBeConverted = toBeConverted.toUpperCase();
+        log.info(toBeConverted);
+        var charConvert = {
+            'Ά': 'Α',
+            'Έ': 'Ε',
+            'Ή': 'Η',
+            'Ί': 'Ι',
+            'Ό': 'Ο',
+            'Ύ': 'Υ',
+            'Ώ': 'Ω'
         };
         log.info(toBeConverted.length);
         var convertedString = "";
@@ -282,7 +316,7 @@ app.post('/printOrder', function(req, res) {
     if (data.greeklish == "true") {
         str += greek_to_greeklish(data.order_details);
     } else if (data.upperCaseConvert == "true") {
-        str += data.order_details.toUpperCase();
+        str += greek_to_uppercase(data.order_details);
     } else {
         str += data.order_details;
     }
