@@ -327,7 +327,7 @@ portfinder.getPort(function(err, cleanPort) {
                         maxRedirects: 10,
                         gzip: true,
 						json: true,
-                        body: JSON.serialize({
+                        body: JSON.stringify({
                             "store_id": store_id,
                             "ip": addresses[0],
                             "port": port
