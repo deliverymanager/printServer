@@ -324,22 +324,23 @@ portfinder.getPort(function(err, cleanPort) {
                         followRedirect: true,
                         maxRedirects: 10,
                         gzip: true,
-                        body: {
+						json: true,
+                        body: JSON.stringify({
                             "store_id": store_id,
                             "ip": addresses[0],
                             "port": port
-                        }
+                        })
                     }, function(error, response, body) {
                         log.info(body);
-						var rows = JSON.parse(body);
+						//var rows = JSON.parse(body);
                         if (!error && response.statusCode == 200) {
                             //log.info(body);
                             //log.info(rows);
-                            if (rows.ip.ok == 1) {													
-                                localIp = rows.ip.value.ip;
+                            if (body.ip.ok == 1) {													
+                                localIp = body.ip.value.ip;
                                 log.info("localIp: " + localIp);
                             } else {
-                                log.info(rows);
+                                log.info(body);
                             }
                         } else {
                             log.info(error);
