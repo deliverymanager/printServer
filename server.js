@@ -350,7 +350,7 @@ portfinder.getPort(function(err, cleanPort) {
                 }
             });
         } else {
-            log.info("The IP remains the same!");
+            log.info("The IP remains the same: " + localIp );
         }
     }, null, true, "Europe/Athens");
 
