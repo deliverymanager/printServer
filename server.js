@@ -156,7 +156,8 @@ app.post('/printOrder', function(req, res) {
         for (var i = 0; i < toBeConverted.length; i++) {
             var tempConverted = charConvert[toBeConverted.charAt(i)];
             if (tempConverted !== "") {
-                toBeConverted = toBeConverted.substr(0, i) + tempConverted + toBeConverted.substr(i + 1 + toBeConverted.length);
+                var tempString = toBeConverted;
+                toBeConverted = tempString.substr(0, i) + tempConverted + tempString.substr(i + 1 + tempString.length);
             }
             log.info(toBeConverted);
         }
