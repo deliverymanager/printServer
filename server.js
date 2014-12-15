@@ -90,7 +90,6 @@ app.post('/printOrder', function(req, res) {
     log.info("/print was just called");
 
     var greek_to_greeklish = function(toBeConverted) {
-        log.info(toBeConverted);
         var charConvert = {
             'Α': 'A',
             'Β': 'V',
@@ -160,24 +159,20 @@ app.post('/printOrder', function(req, res) {
             'Ύ': 'Y',
             'Ώ': 'O'
         };
-        log.info(toBeConverted.length);
         var convertedString = "";
         for (var i = 0; i < toBeConverted.length; i++) {
             var tempConverted = charConvert[toBeConverted.charAt(i)];
-            log.info(tempConverted);
             if (tempConverted && tempConverted !== "undefined") {
                 convertedString += tempConverted;
             } else {
                 convertedString += toBeConverted.charAt(i);
             }
         }
-        log.info(convertedString);
         return convertedString;
     };
 
     var greek_to_uppercase = function(toBeConverted) {
         toBeConverted = toBeConverted.toUpperCase();
-        log.info(toBeConverted);
         var charConvert = {
             'Ά': 'Α',
             'Έ': 'Ε',
@@ -187,18 +182,15 @@ app.post('/printOrder', function(req, res) {
             'Ύ': 'Υ',
             'Ώ': 'Ω'
         };
-        log.info(toBeConverted.length);
         var convertedString = "";
         for (var i = 0; i < toBeConverted.length; i++) {
             var tempConverted = charConvert[toBeConverted.charAt(i)];
-            log.info(tempConverted);
             if (tempConverted && tempConverted !== "undefined") {
                 convertedString += tempConverted;
             } else {
                 convertedString += toBeConverted.charAt(i);
             }
         }
-        log.info(convertedString);
         return convertedString;
     };
 
