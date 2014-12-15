@@ -201,7 +201,7 @@ app.post('/printOrder', function(req, res) {
     }
 
     if (data.greeklish == "true") {
-
+        str += greek_to_greeklish(data.order_details);
     } else {
         str += data.order_details;
     }
@@ -305,9 +305,10 @@ app.post('/printOrder', function(req, res) {
         for (var i = 0; i < toBeConverted.length; i++) {
             var tempConverted = charConvert[str.charAt(i)];
             if (tempConverted !== "") {
-                str.replaceAt(i, tempConverted);
+                toBeConverted.replaceAt(i, tempConverted);
             }
         }
+        return toBeConverted;
     };
 
     //str += "Lets see Greek: φψΩ Ελληνικά Γράμματα ΕΠΙΤΕΛΟΥΣ περισσότερα πολλά πολλά!!!!!! \n\n\n\nThis Awsome Tool!!!\r\n\x1B\x61\x01\x1D\x48\x00\x1D\x68\x60\x1D\x6B\x04 9000002345.\x00***90000002345****\n\n\n\x1B\x2A\x00\x30\x00\x01\x02\x04\x08\x10\x20\x40\x80\x80\x40\x20\x10\x08\x04\x02\x01\x01\x02\x04\x08\x10\x20\x40\x80\x80\x40\x20\x10\x08\x04\x02\x01\x01\x02\x04\x08\x10\x20\x40\x80\x80\x40\x20\x10\x08\x04\x02\x01\n\n\x1D\x56\x42\x18";
