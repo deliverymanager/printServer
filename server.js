@@ -152,12 +152,13 @@ app.post('/printOrder', function(req, res) {
             'ΐ': 'I',
             'ΰ': 'Y'
         };
-
+        log.info(toBeConverted.length);
         for (var i = 0; i < toBeConverted.length; i++) {
             var tempConverted = charConvert[toBeConverted.charAt(i)];
+            log.info(tempConverted);
             if (tempConverted !== "") {
                 var tempString = toBeConverted;
-                toBeConverted = tempString.substr(0, i) + tempConverted + tempString.substr(i + 1 + tempString.length);
+                toBeConverted = tempString.substr(0, i) + tempConverted + tempString.substr(i + tempString.length);
             }
             log.info(toBeConverted);
         }
