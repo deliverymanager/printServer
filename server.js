@@ -281,6 +281,8 @@ app.post('/printOrder', function(req, res) {
 
     if (data.greeklish == "true") {
         str += greek_to_greeklish(data.order_details);
+    } else if (data.upperCaseConvert == "true") {
+        str += data.order_details.toUpperCase();
     } else {
         str += data.order_details;
     }
