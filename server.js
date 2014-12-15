@@ -93,7 +93,7 @@ app.post('/printOrder', function(req, res) {
         log.info(toBeConverted);
         var charConvert = {
             'Α': 'A',
-            'Β': 'B',
+            'Β': 'V',
             'Γ': 'G',
             'Δ': 'D',
             'Ε': 'E',
@@ -117,7 +117,7 @@ app.post('/printOrder', function(req, res) {
             'Ψ': 'PS',
             'Ω': 'O',
             'α': 'A',
-            'β': 'B',
+            'β': 'V',
             'γ': 'G',
             'δ': 'D',
             'ε': 'E',
@@ -157,13 +157,11 @@ app.post('/printOrder', function(req, res) {
         for (var i = 0; i < toBeConverted.length; i++) {
             var tempConverted = charConvert[toBeConverted.charAt(i)];
             log.info(tempConverted);
-            /*
-            if (tempConverted !== "") {
+            if (tempConverted && tempConverted !== "undefined") {
                 var tempString = toBeConverted;
                 toBeConverted = tempString.substr(0, i) + tempConverted + tempString.substr(i, tempString.length);
             }
             log.info(toBeConverted);
-            */
         }
         log.info(toBeConverted);
         return toBeConverted;
