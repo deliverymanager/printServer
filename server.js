@@ -158,7 +158,9 @@ app.post('/printOrder', function(req, res) {
             if (tempConverted !== "") {
                 toBeConverted = toBeConverted.substr(0, i) + tempConverted + toBeConverted.substr(i + 1 + toBeConverted.length);
             }
+            log.info(toBeConverted);
         }
+        log.info(toBeConverted);
         return toBeConverted;
     };
 
