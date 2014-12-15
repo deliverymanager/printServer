@@ -89,10 +89,6 @@ app.post('/printOrder', function(req, res) {
     //json parameters: printer, printerBrand, printerCodepage, print_barcode, barcodeTopBottom, order_id, store_id, order_details, auto_cutter
     log.info("/print was just called");
 
-    var replaceAt = function(index, character) {
-        return this.substr(0, index) + character + this.substr(index + character.length);
-    };
-
     var greek_to_greeklish = function(toBeConverted) {
         var charConvert = {
             'Α': 'A',
@@ -160,7 +156,7 @@ app.post('/printOrder', function(req, res) {
         for (var i = 0; i < toBeConverted.length; i++) {
             var tempConverted = charConvert[toBeConverted.charAt(i)];
             if (tempConverted !== "") {
-                toBeConverted.replaceAt(i, tempConverted);
+                toBeConverted = toBeConverted.substr(0, i) + tempConverted + toBeConverted.substr(i + toBeConverted.length);
             }
         }
         return toBeConverted;
