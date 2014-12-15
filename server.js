@@ -402,7 +402,7 @@ app.post('/checkJobStatus', function(req, res) {
     var printer = require("printer");
 
     res.json({
-        status: printer.getJob(data.printer, data.jobId)
+        status: printer.getJob(data.printer, parseInt(data.jobId))
     });
 });
 
