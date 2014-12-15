@@ -89,6 +89,79 @@ app.post('/printOrder', function(req, res) {
     //json parameters: printer, printerBrand, printerCodepage, print_barcode, barcodeTopBottom, order_id, store_id, order_details, auto_cutter
     log.info("/print was just called");
 
+    var greek_to_greeklish = function(toBeConverted) {
+        var charConvert = {
+            'Α': 'A',
+            'Β': 'B',
+            'Γ': 'G',
+            'Δ': 'D',
+            'Ε': 'E',
+            'Ζ': 'Z',
+            'Η': 'I',
+            'Θ': 'TH',
+            'Ι': 'I',
+            'Κ': 'K',
+            'Λ': 'L',
+            'Μ': 'M',
+            'Ν': 'N',
+            'Ξ': 'KS',
+            'Ο': 'O',
+            'Π': 'P',
+            'Ρ': 'R',
+            'Σ': 'S',
+            'Τ': 'T',
+            'Υ': 'Y',
+            'Φ': 'F',
+            'Χ': 'X',
+            'Ψ': 'PS',
+            'Ω': 'O',
+            'α': 'A',
+            'β': 'B',
+            'γ': 'G',
+            'δ': 'D',
+            'ε': 'E',
+            'ζ': 'Z',
+            'η': 'I',
+            'θ': 'TH',
+            'ι': 'I',
+            'κ': 'K',
+            'λ': 'L',
+            'μ': 'M',
+            'ν': 'N',
+            'ξ': 'KS',
+            'ο': 'O',
+            'π': 'P',
+            'ρ': 'R',
+            'σ': 'S',
+            'τ': 'T',
+            'υ': 'Y',
+            'φ': 'F',
+            'χ': 'X',
+            'ψ': 'PS',
+            'ω': 'O',
+            'ς': 'S',
+            'ά': 'A',
+            'έ': 'E',
+            'ή': 'I',
+            'ί': 'I',
+            'ό': 'O',
+            'ύ': 'Y',
+            'ώ': 'O',
+            'ϊ': 'I',
+            'ϋ': 'Y',
+            'ΐ': 'I',
+            'ΰ': 'Y'
+        };
+
+        for (var i = 0; i < toBeConverted.length; i++) {
+            var tempConverted = charConvert[str.charAt(i)];
+            if (tempConverted !== "") {
+                toBeConverted.replaceAt(i, tempConverted);
+            }
+        }
+        return toBeConverted;
+    };
+
     var printBarcode = function(print_barcode, barcodeTopBottom, order_id, store_id, printerBrand) {
         var str = "";
         var tempOrderId = "";
@@ -238,78 +311,7 @@ app.post('/printOrder', function(req, res) {
         }
     }
 
-    var greek_to_greeklish = function(toBeConverted) {
-        var charConvert = {
-            'Α': 'A',
-            'Β': 'B',
-            'Γ': 'G',
-            'Δ': 'D',
-            'Ε': 'E',
-            'Ζ': 'Z',
-            'Η': 'I',
-            'Θ': 'TH',
-            'Ι': 'I',
-            'Κ': 'K',
-            'Λ': 'L',
-            'Μ': 'M',
-            'Ν': 'N',
-            'Ξ': 'KS',
-            'Ο': 'O',
-            'Π': 'P',
-            'Ρ': 'R',
-            'Σ': 'S',
-            'Τ': 'T',
-            'Υ': 'Y',
-            'Φ': 'F',
-            'Χ': 'X',
-            'Ψ': 'PS',
-            'Ω': 'O',
-            'α': 'A',
-            'β': 'B',
-            'γ': 'G',
-            'δ': 'D',
-            'ε': 'E',
-            'ζ': 'Z',
-            'η': 'I',
-            'θ': 'TH',
-            'ι': 'I',
-            'κ': 'K',
-            'λ': 'L',
-            'μ': 'M',
-            'ν': 'N',
-            'ξ': 'KS',
-            'ο': 'O',
-            'π': 'P',
-            'ρ': 'R',
-            'σ': 'S',
-            'τ': 'T',
-            'υ': 'Y',
-            'φ': 'F',
-            'χ': 'X',
-            'ψ': 'PS',
-            'ω': 'O',
-            'ς': 'S',
-            'ά': 'A',
-            'έ': 'E',
-            'ή': 'I',
-            'ί': 'I',
-            'ό': 'O',
-            'ύ': 'Y',
-            'ώ': 'O',
-            'ϊ': 'I',
-            'ϋ': 'Y',
-            'ΐ': 'I',
-            'ΰ': 'Y'
-        };
 
-        for (var i = 0; i < toBeConverted.length; i++) {
-            var tempConverted = charConvert[str.charAt(i)];
-            if (tempConverted !== "") {
-                toBeConverted.replaceAt(i, tempConverted);
-            }
-        }
-        return toBeConverted;
-    };
 
     //str += "Lets see Greek: φψΩ Ελληνικά Γράμματα ΕΠΙΤΕΛΟΥΣ περισσότερα πολλά πολλά!!!!!! \n\n\n\nThis Awsome Tool!!!\r\n\x1B\x61\x01\x1D\x48\x00\x1D\x68\x60\x1D\x6B\x04 9000002345.\x00***90000002345****\n\n\n\x1B\x2A\x00\x30\x00\x01\x02\x04\x08\x10\x20\x40\x80\x80\x40\x20\x10\x08\x04\x02\x01\x01\x02\x04\x08\x10\x20\x40\x80\x80\x40\x20\x10\x08\x04\x02\x01\x01\x02\x04\x08\x10\x20\x40\x80\x80\x40\x20\x10\x08\x04\x02\x01\n\n\x1D\x56\x42\x18";
 
