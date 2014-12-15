@@ -393,7 +393,7 @@ app.post('/printOrder', function(req, res) {
 });
 
 //API to check the version of the server.
-
+/* DOESNT WORK BECAUSE IF THE JOB IS PRINTED AND REMOVED FROM THE QEUEU THEN IT GIVES ERROR!
 app.post('/checkJobStatus', function(req, res) {
     log.info("/checkJobStatus was just called");
     //res.json is used usually when I want to return data from an API
@@ -405,7 +405,7 @@ app.post('/checkJobStatus', function(req, res) {
         status: printer.getJob(data.printer, parseInt(data.jobId))
     });
 });
-
+*/
 //API to check the version of the server.
 
 app.get('/testError', function(req, res) {
