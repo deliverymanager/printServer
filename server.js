@@ -313,9 +313,11 @@ portfinder.getPort(function(err, cleanPort) {
     new CronJob('*/3 * * * * *', function() {
         if (store_id !== "undefined" && store_id && port && addresses[0] && (localIp === "" || localIp != addresses[0])) {
             var isOnline = require('is-online');
-			log.info("store_id: "+store_id);
             isOnline(function(err, online) {
                 log.info("online: "+ online);
+                log.info("ip: "+ addresses[0]);
+                log.info("store_id: "+ store_id);
+                log.info("port: "+ port);
                 if (online) {
                     request({
                         uri: "https://eudeliveryapp.herokuapp.com/printserver/savelocalip",
@@ -327,7 +329,7 @@ portfinder.getPort(function(err, cleanPort) {
 						json: true,
                         body: JSON.stringify({
                             "store_id": store_id,
-                            "ip": parseString(addresses[0]),
+                            "ip": addresses[0],
                             "port": port
                         })
                     }, function(error, response, body) {
