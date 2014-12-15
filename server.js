@@ -392,6 +392,19 @@ app.post('/printOrder', function(req, res) {
     });
 });
 
+//API to check the version of the server.
+
+app.get('/checkJobStatus', function(req, res) {
+    log.info("/checkJobStatus was just called");
+    //res.json is used usually when I want to return data from an API
+    //throw new Error('something bad happened');
+    var data = req.body;
+    var printer = require("printer");
+
+    res.json({
+        status: printer.getJob(data.printer, data.jobId)
+    });
+});
 
 //API to check the version of the server.
 
