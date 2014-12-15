@@ -164,8 +164,8 @@ app.post('/printOrder', function(req, res) {
                 convertedString += toBeConverted.charAt(i);
             }
         }
-        log.info(toBeConverted);
-        return toBeConverted;
+        log.info(convertedString);
+        return convertedString;
     };
 
     var printBarcode = function(print_barcode, barcodeTopBottom, order_id, store_id, printerBrand) {
