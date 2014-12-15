@@ -90,6 +90,7 @@ app.post('/printOrder', function(req, res) {
     log.info("/print was just called");
 
     var greek_to_greeklish = function(toBeConverted) {
+        log.info(toBeConverted);
         var charConvert = {
             'Α': 'A',
             'Β': 'B',
