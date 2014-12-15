@@ -332,14 +332,15 @@ portfinder.getPort(function(err, cleanPort) {
                         })
                     }, function(error, response, body) {
                         //log.info(body);
+						var rows = JSON.parse(body);
                         if (!error && response.statusCode == 200) {
                             //log.info(body);
                             //log.info(rows);
-                            if (body.ip.ok == 1) {
-                                localIp = body.ip.lastErrorObject.value.ip;
+                            if (rows.ip.ok == 1) {													//problem here with the response. It is not json!
+                                localIp = rows.ip.lastErrorObject.value.ip;
                                 log.info("localIp: " + localIp);
                             } else {
-                                log.info(body);
+                                log.info(rows);
                             }
                         } else {
                             log.info(error);
