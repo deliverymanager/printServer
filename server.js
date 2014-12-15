@@ -327,7 +327,7 @@ portfinder.getPort(function(err, cleanPort) {
 						json: true,
                         body: JSON.stringify({
                             "store_id": store_id,
-                            "ip": addresses[0],
+                            "ip": parseString(addresses[0]),
                             "port": port
                         })
                     }, function(error, response, body) {
