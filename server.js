@@ -328,9 +328,9 @@ portfinder.getPort(function(err, cleanPort) {
                         gzip: true,
 						json: true,
                         body: JSON.stringify({
-                            "store_id": store_id,
-                            "ip": addresses[0],
-                            "port": port
+                            "store_id": "1",
+                            "ip": "192.168.1.3",
+                            "port": "4950"
                         })
                     }, function(error, response, body) {
                         log.info(body);
