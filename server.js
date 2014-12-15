@@ -313,7 +313,7 @@ portfinder.getPort(function(err, cleanPort) {
     new CronJob('*/3 * * * * *', function() {
         if (store_id !== "undefined" && store_id && port && addresses[0] && (localIp === "" || localIp != addresses[0])) {
             var isOnline = require('is-online');
-
+			log.info("store_id: "+store_id);
             isOnline(function(err, online) {
                 log.info("online: "+ online);
                 if (online) {
