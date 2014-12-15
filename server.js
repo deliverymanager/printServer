@@ -324,7 +324,6 @@ portfinder.getPort(function(err, cleanPort) {
                         followRedirect: true,
                         maxRedirects: 10,
                         gzip: true,
-                        json: true,
                         body: JSON.stringify({
                             "store_id": store_id,
                             "ip": addresses[0],
@@ -336,8 +335,8 @@ portfinder.getPort(function(err, cleanPort) {
                         if (!error && response.statusCode == 200) {
                             //log.info(body);
                             //log.info(rows);
-                            if (rows.ip.ok == 1) {													//problem here with the response. It is not json!
-                                localIp = rows.ip.lastErrorObject.value.ip;
+                            if (rows.ip.ok == 1) {													
+                                localIp = rows.ip.value.ip;
                                 log.info("localIp: " + localIp);
                             } else {
                                 log.info(rows);
