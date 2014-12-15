@@ -89,7 +89,7 @@ app.post('/printOrder', function(req, res) {
     //json parameters: printer, printerBrand, printerCodepage, print_barcode, barcodeTopBottom, order_id, store_id, order_details, auto_cutter
     log.info("/print was just called");
 
-    String.prototype.replaceAt = function(index, character) {
+    var replaceAt = function(index, character) {
         return this.substr(0, index) + character + this.substr(index + character.length);
     };
 
