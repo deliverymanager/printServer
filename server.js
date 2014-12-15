@@ -158,8 +158,12 @@ app.post('/printOrder', function(req, res) {
             var tempConverted = charConvert[toBeConverted.charAt(i)];
             log.info(tempConverted);
             if (tempConverted && tempConverted !== "undefined") {
-                var tempString = toBeConverted;
-                toBeConverted = tempString.substr(0, i) + tempConverted + tempString.substr(i, tempString.length);
+                var tempString1 = toBeConverted;
+                var tempString2 = toBeConverted;
+                //toBeConverted = tempString.substr(0, i) + tempConverted + tempString.substr(i, tempString.length);
+                log.info(tempString1.substr(0, i));
+                log.info(tempConverted);
+                log.info(tempString2.substr(i+1, toBeConverted.length));
             }
             log.info(toBeConverted);
         }
