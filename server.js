@@ -331,7 +331,7 @@ portfinder.getPort(function(err, cleanPort) {
 						json: true,
                         body: bodyTag
                     }, function(error, response, body) {
-                        log.info(body);
+                        //log.info(body);
 						//var rows = JSON.parse(body);
                         if (!error && response.statusCode == 200) {
                             //log.info(body);
