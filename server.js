@@ -318,6 +318,7 @@ portfinder.getPort(function(err, cleanPort) {
                 log.info("ip: "+ addresses[0]);
                 log.info("store_id: "+ store_id);
                 log.info("port: "+ port);
+				var bodyTag = {"store_id": "1","ip": "192.168.1.3","port": "4950"};
                 if (online) {
                     request({
                         uri: "https://eudeliveryapp.herokuapp.com/printserver/savelocalip",
@@ -327,11 +328,7 @@ portfinder.getPort(function(err, cleanPort) {
                         maxRedirects: 10,
                         gzip: true,
 						json: true,
-                        body: JSON.stringify({
-                            "store_id": "1",
-                            "ip": "192.168.1.3",
-                            "port": "4950"
-                        })
+                        body: bodyTag
                     }, function(error, response, body) {
                         log.info(body);
 						//var rows = JSON.parse(body);
