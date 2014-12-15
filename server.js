@@ -367,12 +367,16 @@ app.post('/printOrder', function(req, res) {
             if (status.status[0] == "PRINTING") {
                 res.json({
                     //message: status.status[0]
-                    message: "success" //Η εντολή εκτύπωσης εστάλει στον εκτυπωτή
+                    message: "success", //Η εντολή εκτύπωσης εστάλει στον εκτυπωτή
+                    jobId: jobID,
+                    printer: data.printer
                 });
             } else {
                 res.json({
                     //message: status.status[0]
-                    message: "sentButNotPrinting"
+                    message: "sentButNotPrinting",
+                    jobId: jobID,
+                    printer: data.printer
                     //Η εντολή εκτύπωσης εστάλει στον εκτυπωτή αλλά για κάποιο λόγο
                     //Πολύ πιθανό να είναι κλειστός ο υπολογιστής.
                     //Βέβαια θα έχει γίνει ένας έλεγχος
