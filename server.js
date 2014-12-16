@@ -7,18 +7,12 @@ var bodyParser = require('body-parser');
 var bugsnag = require("bugsnag");
 bugsnag.register("9d5907a30dcfaf8806e542fbf61cf623");
 var legacy = require('legacy-encoding');
-var memwatch = require('memwatch');
 var Log = require('log'),
     fs = require('fs'),
     log = new Log('debug', fs.createWriteStream('file.log'));
 
 log.on('line', function(line) {
     console.log(line);
-});
-
-memwatch.on('leak', function(info){
-	console.log(info);
-	log.info(info);
 });
 
 //Here I am creating the singleton connection to the MongoDb server.
@@ -444,10 +438,22 @@ portfinder.getPort(function(err, cleanPort) {
     var request = require("request");
     //The script must be after the port is set.
     var localIp = ""; //Here I initialize the localIp variable, so that when the script runs for the first time, it will send the local IP.
+    var isOnline = require('is-online');
     var CronJob = require('cron').CronJob;
     new CronJob('*/3 * * * * *', function() {
+        var interfaces = os.networkInterfaces();
+        log.info(interfaces);
+        var addresses = [];
+        for (var k in interfaces) {
+            for (var k2 in interfaces[k]) {
+                var address = interfaces[k][k2];
+                if (address.family === 'IPv4' && !address.internal) {
+                    addresses.push(address.address);
+                }
+            }
+        }
         if (store_id !== "undefined" && store_id && port && addresses[0] && (localIp === "" || localIp != addresses[0])) {
-            var isOnline = require('is-online');
+
             isOnline(function(err, online) {
                 log.info("online: " + online);
                 log.info("ip: " + addresses[0]);
@@ -484,9 +490,14 @@ portfinder.getPort(function(err, cleanPort) {
                         } else {
                             log.info(error);
                         }
-
                     });
                 }
+                interfaces = "";
+                addresses = "";
+                k = "";
+                k2 = "";
+                bodyTag = "";
+                address = "";
             });
         } else {
             log.info("The IP remains the same: " + localIp);
