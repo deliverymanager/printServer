@@ -1,8 +1,4 @@
 // one parent can have multiple child processes but each child can have only one parent!
-require('nodetime').profile({
-	accountKey: process.env.NODETIMEKEY,
-	appName: 'Forever Server'
-});
 var forever = require('forever-monitor');
 
 var child = new(forever.Monitor)('server.js', {
