@@ -7,13 +7,18 @@ var bodyParser = require('body-parser');
 var bugsnag = require("bugsnag");
 bugsnag.register("9d5907a30dcfaf8806e542fbf61cf623");
 var legacy = require('legacy-encoding');
-
+var memwatch = require('memwatch');
 var Log = require('log'),
     fs = require('fs'),
     log = new Log('debug', fs.createWriteStream('file.log'));
 
 log.on('line', function(line) {
     console.log(line);
+});
+
+memwatch.on('leak', function(info){
+	console.log(info);
+	log.info(info);
 });
 
 //Here I am creating the singleton connection to the MongoDb server.

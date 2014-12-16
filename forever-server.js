@@ -1,6 +1,10 @@
 // one parent can have multiple child processes but each child can have only one parent!
 
 var forever = require('forever-monitor');
+var memwatch = require('memwatch');
+memwatch.on('leak', function(info){
+	console.log(info);
+});
 
 var child = new(forever.Monitor)('server.js', {
     silent: true,
