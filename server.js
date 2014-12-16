@@ -1,5 +1,8 @@
 /*jslint node: true*/
-
+require('nodetime').profile({
+	accountKey: process.env.NODETIMEKEY,
+	appName: 'Print Server'
+});
 //First we call the packages we need.
 var express = require('express');
 var app = express();
