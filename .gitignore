@@ -8,6 +8,7 @@ pids
 *.seed
 
 file.log
+fileForeverServer.log
 
 .git/
 node_modules/.bin
