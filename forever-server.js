@@ -37,6 +37,7 @@ new CronJob('00 * * * * *', function() {
         log.info("stderr:" + stderr);
         if (error === null && stdout.indexOf('Already up-to-date') !== -1) { // The error might be for example that the user has no internet connection.
             //Here I restart the server.js child process because the git pull was just called.
+            log.info("Restarting server.js ");
             child.restart();
         }
 
