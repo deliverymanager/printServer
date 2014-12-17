@@ -1,7 +1,8 @@
 /*jslint node: true*/
 require('nodetime').profile({
 	accountKey: process.env.NODETIMEKEY,
-	appName: 'Print Server'
+	appName: 'Print Server',
+    debug: true
 });
 //First we call the packages we need.
 var express = require('express');
@@ -307,9 +308,9 @@ app.post('/printOrder', function(req, res) {
         str += printBarcode(data.print_barcode, data.barcodeTopBottom, data.order_id, data.store_id, data.printerBrand);
     }
 
-    if (data.greeklish == "true") {
+    if (data.greeklish == "1") {
         str += greek_to_greeklish(data.order_details);
-    } else if (data.upperCaseConvert == "true") {
+    } else if (data.upperCaseConvert == "1") {
         str += greek_to_uppercase(data.order_details);
     } else {
         str += data.order_details;
