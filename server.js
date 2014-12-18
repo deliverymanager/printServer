@@ -1,5 +1,5 @@
 /*jslint node: true*/
-if (process.env.NODETIMEKEY !== null && process.env.NODETIMEKEY !== "undefined") {
+if (process.env.NODETIMEKEY !== "empty") {
     require('nodetime').profile({
         accountKey: process.env.NODETIMEKEY,
         appName: 'Print Server',
