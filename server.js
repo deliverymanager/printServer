@@ -1,9 +1,11 @@
 /*jslint node: true*/
-require('nodetime').profile({
-    accountKey: process.env.NODETIMEKEY,
-    appName: 'Print Server',
-    debug: true
-});
+if (process.env.NODETIMEKEY !== null && process.env.NODETIMEKEY !== "undefined") {
+    require('nodetime').profile({
+        accountKey: process.env.NODETIMEKEY,
+        appName: 'Print Server',
+        debug: true
+    });
+}
 //First we call the packages we need.
 var express = require('express');
 var app = express();
